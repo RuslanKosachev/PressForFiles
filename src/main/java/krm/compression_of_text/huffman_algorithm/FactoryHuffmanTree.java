@@ -74,7 +74,7 @@ public class FactoryHuffmanTree {
     // todo test
     public static void main(String[] args) {
 
-        CodeGravityComparator compCodeGravity = new CodeGravityComparator();
+        CodeGravityComparator compCodeGravity = CodeGravityComparator.getInstance();
 
         FactoryHuffmanTree f = new FactoryHuffmanTree(compCodeGravity);
         f.addWordGravity('e');
@@ -97,10 +97,11 @@ public class FactoryHuffmanTree {
 
         TreeLeaf l1 = new TreeLeaf('u', 11111);
         System.out.println(f.leafList.contains(l1));
-        TreeBiNode n1 = new TreeBiNode(new TreeLeaf('t', 6445), new TreeLeaf('p', 879), new CodeGravityComparator());
+
+        TreeBiNode n1 = new TreeBiNode(new TreeLeaf('t', 6445), new TreeLeaf('p', 879), CodeGravityComparator.getInstance());
         System.out.println(f.leafList.contains(n1));
 
-        f.leafList.add(new TreeBiNode(new TreeLeaf('t', 6445), new TreeLeaf('p', 879), new CodeGravityComparator()));
+        f.leafList.add(new TreeBiNode(new TreeLeaf('t', 6445), new TreeLeaf('p', 879), CodeGravityComparator.getInstance()));
 
         Collections.sort(f.leafList, compCodeGravity);
         System.out.println(f.leafList);

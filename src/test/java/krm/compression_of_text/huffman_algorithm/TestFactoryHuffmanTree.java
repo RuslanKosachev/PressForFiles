@@ -8,7 +8,7 @@ public class TestFactoryHuffmanTree {
 
     @Test
     public void testAddWordGravity() {
-        FactoryHuffmanTree f = new FactoryHuffmanTree(new CodeGravityComparator());
+        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
         f.addWordGravity('e');
         f.addWordGravity('e');
         f.addWordGravity('e');
@@ -29,7 +29,7 @@ public class TestFactoryHuffmanTree {
 
     @Test
     public void testGetRoot() {
-        FactoryHuffmanTree f = new FactoryHuffmanTree(new CodeGravityComparator());
+        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
         f.addWordGravity('e');
         f.addWordGravity('e');
         f.addWordGravity('e');

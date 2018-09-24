@@ -18,8 +18,7 @@ public class TestCodeGravityComparator {
         listArr.add(new TreeLeaf('r', 7));
         listArr.add(new TreeLeaf('r', 84));
         listArr.add(new TreeLeaf('r', 1));
-        Collections.sort(listArr, new CodeGravityComparator());
-        assertEquals("[Leaf->1, Leaf->5, Leaf->7, Leaf->10, Leaf->84]", listArr.toString());
+        Collections.sort(listArr, CodeGravityComparator.getInstance());
+        assertEquals("[Leaf->1=r, Leaf->5=r, Leaf->7=r, Leaf->10=r, Leaf->84=r]", listArr.toString());
     }
-
 }
