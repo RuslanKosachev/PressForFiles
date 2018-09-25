@@ -43,7 +43,7 @@ public class TestFactoryHuffmanTree {
         f.addWordGravity('i');
         assertEquals("Node->11", f.getRoot().toString());
 
-        f.toStringNode((AbstractTreeLeaf) f.getRoot(), 0);
+        f.toStringNode(f.getRoot(), 0);
     }
 
 }

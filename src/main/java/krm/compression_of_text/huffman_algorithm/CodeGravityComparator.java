@@ -17,8 +17,6 @@ public class CodeGravityComparator implements Comparator<ITreeGravity> {
         return 0;
     }
 
-    private CodeGravityComparator() {}
-
     private static class Holder {
         private static final CodeGravityComparator INSTANCE = new CodeGravityComparator();
     }

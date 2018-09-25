@@ -3,24 +3,12 @@ package krm.compression_of_text.huffman_algorithm;
 
 import java.util.Comparator;
 
-public class TreeBiNode extends AbstractTreeLeaf implements ITreeBiNode {
-
-    protected ITreeGravity leftSink = null;
-    protected ITreeGravity rightSink = null;
-
-    public ITreeGravity getLeftSink() {
-        return this.leftSink;
-    }
-
-    public ITreeGravity getRightSink() {
-        return this.rightSink;
-    }
+public class TreeBiNode extends AbstractTreeBiNode implements ITreeBiNode, ITreeLeaf {
 
     public TreeBiNode(ITreeGravity leftSink, ITreeGravity rightSink, Comparator<ITreeGravity> comparator) {
+        super(leftSink, rightSink, comparator);
 
-        super(leftSink.getGravity() + rightSink.getGravity());
-
-        if (comparator.compare(leftSink,rightSink) < 0) {
+        if (comparator.compare(leftSink, rightSink) < 0) {
             this.leftSink = leftSink;
             this.rightSink = rightSink;
         } else {
@@ -34,4 +22,7 @@ public class TreeBiNode extends AbstractTreeLeaf implements ITreeBiNode {
         return String.valueOf("Node->" + super.getGravity());
     }
 
+    public char getUnit() {
+        return 0;
+    }
 }

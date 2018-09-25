@@ -17,7 +17,9 @@ public class FactoryHuffmanTree {
 
     public void addWordGravity(char word) {
         int gravity = 1;
-        if (gravityMap.containsKey(word)) { gravity += gravityMap.get(word); }
+        if (gravityMap.containsKey(word)) {
+            gravity += gravityMap.get(word);
+        }
         gravityMap.put(word, gravity);
     }
 
@@ -57,18 +59,18 @@ public class FactoryHuffmanTree {
     }
 
 
-    public void toStringNode(ITreeLeaf node, int shift) {
-         if (node != null) {
-             toStringNode((ITreeLeaf) node.getLeftSink(), shift + 10);
+    public void toStringNode(ITreeBiNode node, int shift) {
+        if (node != null) {
+            toStringNode((ITreeBiNode) node.getLeftSink(), shift + 10);
 
-             for (int i = 0; i < shift; i++) {
-                 System.out.print(" ");
-             }
+            for (int i = 0; i < shift; i++) {
+                System.out.print(" ");
+            }
 
-             System.out.println(node.toString());
+            System.out.println(node.toString());
 
-             toStringNode((ITreeLeaf)node.getRightSink(), shift + 10);
-         }
+            toStringNode((ITreeBiNode) node.getRightSink(), shift + 10);
+        }
     }
 
     // todo test
@@ -106,10 +108,10 @@ public class FactoryHuffmanTree {
         Collections.sort(f.leafList, compCodeGravity);
         System.out.println(f.leafList);
 
-        TreeBiNode n = (TreeBiNode)f.leafList.get(4);
+        TreeBiNode n = (TreeBiNode) f.leafList.get(4);
         System.out.println(n.getLeftSink());
 
-        TreeLeaf leaf = (TreeLeaf)f.leafList.get(0);
+        TreeLeaf leaf = (TreeLeaf) f.leafList.get(0);
         System.out.println(leaf.getUnit());
 
         System.out.println("///////////////////////");
@@ -117,7 +119,7 @@ public class FactoryHuffmanTree {
         ITreeBiNode node = f.getRoot();
 
         System.out.println("////////////////////////////////////////////////////////");
-        f.toStringNode((AbstractTreeLeaf) f.getRoot(), 0);
+        f.toStringNode(f.getRoot(), 0);
 
     }
 }
