@@ -21,10 +21,10 @@ public class TestFactoryHuffmanTree {
         f.addWordGravity('i');
         f.addWordGravity('i');
         //{r=2, e=5, u=2, i=2}
-        assertEquals(2, (int)f.gravityMap.get('r'));
-        assertEquals(5, (int)f.gravityMap.get('e'));
-        assertEquals(2, (int)f.gravityMap.get('u'));
-        assertEquals(2, (int)f.gravityMap.get('i'));
+        assertEquals(2, (int)f.gravityLeafsMap.get('r'));
+        assertEquals(5, (int)f.gravityLeafsMap.get('e'));
+        assertEquals(2, (int)f.gravityLeafsMap.get('u'));
+        assertEquals(2, (int)f.gravityLeafsMap.get('i'));
     }
 
     @Test

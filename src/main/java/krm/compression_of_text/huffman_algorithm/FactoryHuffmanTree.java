@@ -4,8 +4,8 @@ import java.util.*;
 
 public class FactoryHuffmanTree {
 
-    protected Map<Character, Integer> gravityMap = new HashMap();
-    protected List<ITreeGravity> leafList = new ArrayList();
+    protected Map<Character, Integer> gravityLeafsMap = new HashMap();
+    protected List<ITreeGravity> nodeList = new ArrayList();
 
     Comparator<ITreeGravity> comparatorCodeGravity = null;
 
@@ -17,33 +17,31 @@ public class FactoryHuffmanTree {
 
     public void addWordGravity(char word) {
         int gravity = 1;
-        if (gravityMap.containsKey(word)) {
-            gravity += gravityMap.get(word);
+        if (gravityLeafsMap.containsKey(word)) {
+            gravity += gravityLeafsMap.get(word);
         }
-        gravityMap.put(word, gravity);
+        gravityLeafsMap.put(word, gravity);
     }
 
     protected void initCollectionOfLeaf() {
-        for (Map.Entry item : gravityMap.entrySet()) {
+        for (Map.Entry item : gravityLeafsMap.entrySet()) {
             Character key = (Character) item.getKey();
             Integer value = (Integer) item.getValue();
 
-            leafList.add(new TreeLeaf(key.charValue(), value.intValue()));
+            nodeList.add(new TreeLeaf(key.charValue(), value.intValue()));
         }
     }
 
-    public void generateHuffmanTree() {
-        TreeBiNode newNode = null;
-        while (leafList.size() > 1) {
-            Collections.sort(leafList, this.comparatorCodeGravity);
-            newNode = new TreeBiNode(leafList.get(0), leafList.get(1), comparatorCodeGravity);
-            leafList.remove(0);
-            leafList.remove(0);
-            leafList.add(newNode);
-            System.out.println(leafList); // todo test
+    protected void generateHuffmanTree() {
+        while (nodeList.size() > 1) {
+            Collections.sort(nodeList, this.comparatorCodeGravity);
+            nodeList.set(1, new TreeBiNode(nodeList.get(0), nodeList.get(1), comparatorCodeGravity));
+            nodeList.remove(0);
+            //System.out.println(nodeList); // todo test
         }
-
-        this.rootNode = (ITreeBiNode) leafList.get(0);
+        this.rootNode = (!(nodeList.isEmpty() && (nodeList.get(0) == null)))
+                        ? (ITreeBiNode) nodeList.get(0)
+                        : null;
     }
 
     public ITreeBiNode getRoot() {
@@ -63,9 +61,7 @@ public class FactoryHuffmanTree {
         if (node != null) {
             toStringNode((ITreeBiNode) node.getLeftSink(), shift + 10);
 
-            for (int i = 0; i < shift; i++) {
-                System.out.print(" ");
-            }
+            for (int i = 0; i < shift; i++) { System.out.print(" "); }
 
             System.out.println(node.toString());
 
@@ -91,27 +87,27 @@ public class FactoryHuffmanTree {
         f.addWordGravity('i');
         f.addWordGravity('i');
 
-        System.out.println(f.gravityMap);
+        System.out.println(f.gravityLeafsMap);
 
         f.initCollectionOfLeaf();
 
-        System.out.println(f.leafList);
+        System.out.println(f.nodeList);
 
         TreeLeaf l1 = new TreeLeaf('u', 11111);
-        System.out.println(f.leafList.contains(l1));
+        System.out.println(f.nodeList.contains(l1));
 
         TreeBiNode n1 = new TreeBiNode(new TreeLeaf('t', 6445), new TreeLeaf('p', 879), CodeGravityComparator.getInstance());
-        System.out.println(f.leafList.contains(n1));
+        System.out.println(f.nodeList.contains(n1));
 
-        f.leafList.add(new TreeBiNode(new TreeLeaf('t', 6445), new TreeLeaf('p', 879), CodeGravityComparator.getInstance()));
+        f.nodeList.add(new TreeBiNode(new TreeLeaf('t', 6445), new TreeLeaf('p', 879), CodeGravityComparator.getInstance()));
 
-        Collections.sort(f.leafList, compCodeGravity);
-        System.out.println(f.leafList);
+        Collections.sort(f.nodeList, compCodeGravity);
+        System.out.println(f.nodeList);
 
-        TreeBiNode n = (TreeBiNode) f.leafList.get(4);
+        TreeBiNode n = (TreeBiNode) f.nodeList.get(4);
         System.out.println(n.getLeftSink());
 
-        TreeLeaf leaf = (TreeLeaf) f.leafList.get(0);
+        TreeLeaf leaf = (TreeLeaf) f.nodeList.get(0);
         System.out.println(leaf.getUnit());
 
         System.out.println("///////////////////////");

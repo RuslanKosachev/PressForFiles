@@ -18,4 +18,22 @@ public class TestTreeLeaf {
         assertEquals('t', l1.getUnit());
     }
 
+    @Test
+    public void testEquals() {
+        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
+        f.addWordGravity('e');
+        f.addWordGravity('e');
+        f.addWordGravity('e');
+        f.addWordGravity('r');
+        f.addWordGravity('e');
+        f.addWordGravity('r');
+        f.addWordGravity('e');
+        f.addWordGravity('u');
+        f.addWordGravity('u');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.initCollectionOfLeaf();
+        TreeLeaf leaf = new TreeLeaf('u', 4652);
+        assertEquals(true, f.nodeList.contains(leaf));
+    }
 }
