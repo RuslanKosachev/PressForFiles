@@ -13,9 +13,9 @@ public class TestTreeLeaf {
     }
 
     @Test
-    public void testGetUnit() {
+    public void testGetSignification() {
         TreeLeaf l1 = new TreeLeaf('t', 1);
-        assertEquals('t', l1.getUnit());
+        assertEquals((Character) 't', l1.getSignification());
     }
 
     @Test

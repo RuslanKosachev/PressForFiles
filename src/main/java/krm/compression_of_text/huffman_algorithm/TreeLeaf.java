@@ -1,10 +1,10 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
-public class TreeLeaf extends AbstractTreeLeaf implements ITreeLeaf, ITreeBiNode {
+public class TreeLeaf extends AbstractTreeLeaf implements IBiTree {
 
-    public TreeLeaf(char unit, int gravity) {
-        super(unit, gravity);
+    public TreeLeaf(char signification, int gravity) {
+        super(signification, gravity);
     }
 
     public ITreeGravity getLeftSink() {
@@ -25,11 +25,11 @@ public class TreeLeaf extends AbstractTreeLeaf implements ITreeLeaf, ITreeBiNode
 
         TreeLeaf leaf = (TreeLeaf) o;
 
-        return this.unit == leaf.getUnit();
+        return this.signification == leaf.getSignification();
     }
 
     @Override
     public String toString() {
-        return String.valueOf("Leaf->" + this.getGravity() + "=" + this.getUnit());
+        return String.valueOf("Leaf->" + this.getGravity() + "=" + this.getSignification());
     }
 }

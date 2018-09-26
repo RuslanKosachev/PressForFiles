@@ -39,9 +39,9 @@ public class FactoryHuffmanTree {
             nodeList.remove(0);
             //System.out.println(nodeList); // todo test
         }
-        this.rootNode = (!(nodeList.isEmpty() && (nodeList.get(0) == null)))
-                        ? (ITreeBiNode) nodeList.get(0)
-                        : null;
+        this.rootNode = ((nodeList.isEmpty() && (nodeList.get(0) == null)))
+                        ? null
+                        : (ITreeBiNode) nodeList.get(0);
     }
 
     public ITreeBiNode getRoot() {
@@ -56,12 +56,13 @@ public class FactoryHuffmanTree {
         generateHuffmanTree();
     }
 
-
     public void toStringNode(ITreeBiNode node, int shift) {
         if (node != null) {
             toStringNode((ITreeBiNode) node.getLeftSink(), shift + 10);
 
-            for (int i = 0; i < shift; i++) { System.out.print(" "); }
+            for (int i = 0; i < shift; i++) {
+                System.out.print(" ");
+            }
 
             System.out.println(node.toString());
 
@@ -108,7 +109,7 @@ public class FactoryHuffmanTree {
         System.out.println(n.getLeftSink());
 
         TreeLeaf leaf = (TreeLeaf) f.nodeList.get(0);
-        System.out.println(leaf.getUnit());
+        System.out.println(leaf.getSignification());
 
         System.out.println("///////////////////////");
 

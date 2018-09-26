@@ -3,7 +3,7 @@ package krm.compression_of_text.huffman_algorithm;
 
 import java.util.Comparator;
 
-public class TreeBiNode extends AbstractTreeBiNode implements ITreeBiNode, ITreeLeaf {
+public class TreeBiNode extends AbstractTreeBiNode implements IBiTree {
 
     public TreeBiNode(ITreeGravity leftSink, ITreeGravity rightSink, Comparator<ITreeGravity> comparator) {
         super(leftSink, rightSink, comparator);
@@ -22,7 +22,7 @@ public class TreeBiNode extends AbstractTreeBiNode implements ITreeBiNode, ITree
         return String.valueOf("Node->" + super.getGravity());
     }
 
-    public char getUnit() {
-        return 0;
+    public Character getSignification() {
+        return null;
     }
 }
