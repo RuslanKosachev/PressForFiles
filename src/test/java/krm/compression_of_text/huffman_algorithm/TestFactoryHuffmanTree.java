@@ -18,17 +18,20 @@ public class TestFactoryHuffmanTree {
         f.addWordGravity('e');
         f.addWordGravity('u');
         f.addWordGravity('u');
+        f.addWordGravity('u');
+        f.addWordGravity('u');
+        f.addWordGravity('i');
         f.addWordGravity('i');
         f.addWordGravity('i');
         //{r=2, e=5, u=2, i=2}
         assertEquals(2, (int)f.gravityLeafs.get('r'));
         assertEquals(5, (int)f.gravityLeafs.get('e'));
-        assertEquals(2, (int)f.gravityLeafs.get('u'));
-        assertEquals(2, (int)f.gravityLeafs.get('i'));
+        assertEquals(4, (int)f.gravityLeafs.get('u'));
+        assertEquals(3, (int)f.gravityLeafs.get('i'));
     }
 
     @Test
-    public void testGetRoot() {
+    public void testGetRootNode() {
         FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
         f.addWordGravity('i');
         f.addWordGravity('e');
@@ -56,9 +59,9 @@ public class TestFactoryHuffmanTree {
         f.addWordGravity('o');
         f.addWordGravity('o');
         f.addWordGravity('o');
-        assertEquals(26, f.getRoot().getGravity());
+        assertEquals(26, f.getRootNode().getGravity());
 
-        f.toStringNode(f.getRoot(), 0);
+        f.toStringNode(f.getRootNode(), 0);
     }
 
 }

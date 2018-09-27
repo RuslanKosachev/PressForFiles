@@ -13,35 +13,17 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
     }
 
     public Map getCodes() {
-        if (this.codes == null) {
-            reset();
+        if (codes.isEmpty()) {
+            resetCodes();
         }
         return this.codes;
     }
 
-    //public void reset() {
-    //    initCodes();
-    //}
+    public void resetCodes() {
+        this.initCodes(super.getRootNode());
+    }
 
-    /*
-    vector<bool> code;
-    map<char,vector<bool> > table;
 
-    void BuildTable(Node *root)
-    {
-        if (root->left!=NULL) {
-                code.push_back(0);
-                BuildTable(root->left);
-        }
-        if (root->right!=NULL) {
-                code.push_back(1);
-                BuildTable(root->right);
-        }
-        if (root->left==NULL && root->right==NULL)  {
-                table[root->c]=code;
-            }
-        code.pop_back();
-    }*/
     protected void initCodes(IHuffmanTree node) {
         if (node.getLeftSink() != null) {
             this.code.add(false);
@@ -51,11 +33,15 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
             this.code.add(true);
             initCodes((IHuffmanTree) node.getRightSink());
         }
-        if ((node.getLeftSink() != null) && (node.getRightSink() != null)) {
-            this.codes.put(node.getSignification(), code);
+        if ((node.getLeftSink() == null) && (node.getRightSink() == null)) {
+            this.codes.put(node.getSignification(), new LinkedList<Boolean>(code));
         }
-        this.code.remove(code.size() - 1);
+        if (code.isEmpty()) {
+            int i = code.size() - 1;
+            this.code.remove(i);
+        }
     }
+
 
 
     // todo test
@@ -64,10 +50,21 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
         f.addWordGravity('e');
         f.addWordGravity('e');
         f.addWordGravity('e');
-        f.addWordGravity('r');
         f.addWordGravity('e');
-        f.addWordGravity('r');
         f.addWordGravity('e');
+        f.addWordGravity('e');
+        f.addWordGravity('e');
+        f.addWordGravity('k');
+        f.addWordGravity('p');
+        f.addWordGravity('p');
+        f.addWordGravity('p');
+        f.addWordGravity('p');
+        f.addWordGravity('p');
+        f.addWordGravity('p');
+        f.addWordGravity('p');
+        f.addWordGravity('r');
+        f.addWordGravity('r');
+        f.addWordGravity('r');
         f.addWordGravity('u');
         f.addWordGravity('u');
         f.addWordGravity('i');
@@ -79,10 +76,26 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
         f.addWordGravity('i');
         f.addWordGravity('i');
         f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
 
+        f.toStringNode(f.getRootNode(), 0);
 
+        FactoryHuffmanCode  factoryHuffmanCode = new FactoryHuffmanCode(CodeGravityComparator.getInstance());
 
-        f.toStringNode(f.getRoot(), 0);
+        System.out.println(f.toString());
+        System.out.println("------------------- initCodes ---------------------------");
+        factoryHuffmanCode.initCodes(f.getRootNode());
+        System.out.println("------------------------ codes ----------------------");
+        System.out.println(factoryHuffmanCode.codes);
 
     }
 }

@@ -5,7 +5,7 @@ import java.util.*;
 public class FactoryHuffmanTree {
 
     protected Map<Character, Integer> gravityLeafs = new HashMap();
-    protected List<IHuffmanTree> nodeList = new ArrayList();
+    protected List<IHuffmanTree> nodes = new ArrayList();
 
     Comparator<ITreeGravity> comparatorCodeGravity = null;
 
@@ -28,30 +28,30 @@ public class FactoryHuffmanTree {
             Character key = (Character) item.getKey();
             Integer value = (Integer) item.getValue();
 
-            nodeList.add(new HuffmanTreeLeaf(key.charValue(), value.intValue()));
+            nodes.add(new HuffmanTreeLeaf(key.charValue(), value.intValue()));
         }
     }
 
     protected void generateHuffmanTree() {
-        while (nodeList.size() > 1) {
-            Collections.sort(nodeList, this.comparatorCodeGravity);
-            nodeList.set(1, new HuffmanTreeBiNode<IHuffmanTree>( nodeList.get(0), nodeList.get(1), comparatorCodeGravity));
-            nodeList.remove(0);
+        while (nodes.size() > 1) {
+            Collections.sort(nodes, this.comparatorCodeGravity);
+            nodes.set(1, new HuffmanTreeBiNode<IHuffmanTree>( nodes.get(0), nodes.get(1), comparatorCodeGravity));
+            nodes.remove(0);
             //System.out.println(nodeList); // todo test
         }
-        this.rootNode = ((nodeList.isEmpty() && (nodeList.get(0) == null)))
+        this.rootNode = ((nodes.isEmpty() && (nodes.get(0) == null)))
                         ? null
-                        : nodeList.get(0);
+                        : nodes.get(0);
     }
 
-    public IHuffmanTree getRoot() {
+    public IHuffmanTree getRootNode() {
         if (this.rootNode == null) {
-            reset();
+            resetHuffmanTree();
         }
         return this.rootNode;
     }
 
-    public void reset() {
+    public void resetHuffmanTree() {
         initCollectionOfLeaf();
         generateHuffmanTree();
     }
@@ -65,7 +65,6 @@ public class FactoryHuffmanTree {
                 //System.out.print(" ");
                 out += " ";
             }
-
             //System.out.println(node.toString());
             out += node.toString() + '\n';
 
@@ -102,28 +101,28 @@ public class FactoryHuffmanTree {
 
         f.initCollectionOfLeaf();
 
-        System.out.println(f.nodeList);
+        System.out.println(f.nodes);
 
         HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('u', 11111);
-        System.out.println(f.nodeList.contains(l1));
+        System.out.println(f.nodes.contains(l1));
 
         HuffmanTreeBiNode n1 = new HuffmanTreeBiNode<IHuffmanTree>(new HuffmanTreeLeaf('t', 6445), new HuffmanTreeLeaf('p', 879), CodeGravityComparator.getInstance());
-        System.out.println(f.nodeList.contains(n1));
+        System.out.println(f.nodes.contains(n1));
 
-        f.nodeList.add(new HuffmanTreeBiNode<IHuffmanTree>(new HuffmanTreeLeaf('t', 6445), new HuffmanTreeLeaf('p', 879), CodeGravityComparator.getInstance()));
+        f.nodes.add(new HuffmanTreeBiNode<IHuffmanTree>(new HuffmanTreeLeaf('t', 6445), new HuffmanTreeLeaf('p', 879), CodeGravityComparator.getInstance()));
 
-        Collections.sort(f.nodeList, compCodeGravity);
-        System.out.println(f.nodeList);
+        Collections.sort(f.nodes, compCodeGravity);
+        System.out.println(f.nodes);
 
-        HuffmanTreeBiNode n = (HuffmanTreeBiNode) f.nodeList.get(4);
+        HuffmanTreeBiNode n = (HuffmanTreeBiNode) f.nodes.get(4);
         System.out.println(n.getLeftSink());
 
-        HuffmanTreeLeaf leaf = (HuffmanTreeLeaf) f.nodeList.get(0);
+        HuffmanTreeLeaf leaf = (HuffmanTreeLeaf) f.nodes.get(0);
         System.out.println(leaf.getSignification());
 
         System.out.println("///////////////////////");
 
-        ITreeBiNode node = f.getRoot();
+        ITreeBiNode node = f.getRootNode();
 
         System.out.println("#############################################################");
 

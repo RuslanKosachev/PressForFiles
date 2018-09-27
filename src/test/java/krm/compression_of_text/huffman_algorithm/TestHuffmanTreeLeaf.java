@@ -34,6 +34,6 @@ public class TestHuffmanTreeLeaf {
         f.addWordGravity('i');
         f.initCollectionOfLeaf();
         HuffmanTreeLeaf leaf = new HuffmanTreeLeaf('u', 4652);
-        assertEquals(true, f.nodeList.contains(leaf));
+        assertEquals(true, f.nodes.contains(leaf));
     }
 }

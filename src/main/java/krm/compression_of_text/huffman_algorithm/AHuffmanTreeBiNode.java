@@ -11,7 +11,7 @@ public abstract class AHuffmanTreeBiNode<T extends ITreeGravity> extends ATreeGr
     public AHuffmanTreeBiNode(T leftSink, T rightSink, Comparator<ITreeGravity> comparator) {
         super(leftSink.getGravity() + rightSink.getGravity());
 
-        if (comparator.compare(leftSink, rightSink) < 0) {
+        if (comparator.compare(leftSink, rightSink) <= 0) {
             this.leftSink =  leftSink;
             this.rightSink =  rightSink;
         } else {
