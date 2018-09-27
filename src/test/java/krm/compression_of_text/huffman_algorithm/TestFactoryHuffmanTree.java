@@ -30,18 +30,33 @@ public class TestFactoryHuffmanTree {
     @Test
     public void testGetRoot() {
         FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
+        f.addWordGravity('i');
+        f.addWordGravity('e');
+        f.addWordGravity('e');
         f.addWordGravity('e');
         f.addWordGravity('e');
         f.addWordGravity('e');
         f.addWordGravity('r');
-        f.addWordGravity('e');
         f.addWordGravity('r');
-        f.addWordGravity('e');
         f.addWordGravity('u');
         f.addWordGravity('u');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        assertEquals("Node->11", f.getRoot().toString());
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        f.addWordGravity('o');
+        assertEquals(26, f.getRoot().getGravity());
 
         f.toStringNode(f.getRoot(), 0);
     }

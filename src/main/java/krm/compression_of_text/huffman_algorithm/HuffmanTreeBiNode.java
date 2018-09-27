@@ -3,9 +3,9 @@ package krm.compression_of_text.huffman_algorithm;
 
 import java.util.Comparator;
 
-    public class TreeBiNode<T extends ITreeGravity> extends AbstractTreeBiNode implements ITreeHuffman {
+    public class HuffmanTreeBiNode<T extends ITreeGravity> extends AHuffmanTreeBiNode implements IHuffmanTree {
 
-    public TreeBiNode(T leftSink, T rightSink, Comparator<ITreeGravity> comparator) {
+    public HuffmanTreeBiNode(T leftSink, T rightSink, Comparator<ITreeGravity> comparator) {
         super(leftSink, rightSink, comparator);
 
         if (comparator.compare(leftSink, rightSink) < 0) {

@@ -4,17 +4,17 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestTreeLeaf {
+public class TestHuffmanTreeLeaf {
 
     @Test
     public void testGetGravity() {
-        TreeLeaf l1 = new TreeLeaf('a', 23);
+        HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('a', 23);
         assertEquals(23, l1.getGravity());
     }
 
     @Test
     public void testGetSignification() {
-        TreeLeaf l1 = new TreeLeaf('t', 1);
+        HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('t', 1);
         assertEquals((Character) 't', l1.getSignification());
     }
 
@@ -33,7 +33,7 @@ public class TestTreeLeaf {
         f.addWordGravity('i');
         f.addWordGravity('i');
         f.initCollectionOfLeaf();
-        TreeLeaf leaf = new TreeLeaf('u', 4652);
+        HuffmanTreeLeaf leaf = new HuffmanTreeLeaf('u', 4652);
         assertEquals(true, f.nodeList.contains(leaf));
     }
 }

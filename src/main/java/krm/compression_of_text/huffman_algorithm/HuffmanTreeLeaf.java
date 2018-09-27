@@ -1,9 +1,9 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
-public class TreeLeaf extends AbstractTreeLeaf implements IBiTree, ITreeHuffman {
+public class HuffmanTreeLeaf extends AHuffmanTreeLeaf implements IHuffmanTree {
 
-    public TreeLeaf(char signification, int gravity) {
+    public HuffmanTreeLeaf(char signification, int gravity) {
         super(signification, gravity);
     }
 
@@ -23,7 +23,7 @@ public class TreeLeaf extends AbstractTreeLeaf implements IBiTree, ITreeHuffman 
             return false;
         }
 
-        TreeLeaf leaf = (TreeLeaf) o;
+        HuffmanTreeLeaf leaf = (HuffmanTreeLeaf) o;
 
         return this.signification == leaf.getSignification();
     }

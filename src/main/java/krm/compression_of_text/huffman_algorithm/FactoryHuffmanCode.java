@@ -42,18 +42,47 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
             }
         code.pop_back();
     }*/
-    protected void initCodes(IBiTree node) {
+    protected void initCodes(IHuffmanTree node) {
         if (node.getLeftSink() != null) {
             this.code.add(false);
-            initCodes((IBiTree) node.getLeftSink());
+            initCodes((IHuffmanTree) node.getLeftSink());
         }
         if (node.getRightSink() != null) {
             this.code.add(true);
-            initCodes((IBiTree) node.getRightSink());
+            initCodes((IHuffmanTree) node.getRightSink());
         }
         if ((node.getLeftSink() != null) && (node.getRightSink() != null)) {
             this.codes.put(node.getSignification(), code);
         }
         this.code.remove(code.size() - 1);
+    }
+
+
+    // todo test
+    public static void main(String[] args) {
+        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
+        f.addWordGravity('e');
+        f.addWordGravity('e');
+        f.addWordGravity('e');
+        f.addWordGravity('r');
+        f.addWordGravity('e');
+        f.addWordGravity('r');
+        f.addWordGravity('e');
+        f.addWordGravity('u');
+        f.addWordGravity('u');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+        f.addWordGravity('i');
+
+
+
+        f.toStringNode(f.getRoot(), 0);
+
     }
 }

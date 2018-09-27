@@ -1,18 +1,18 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
-public abstract class AbstractTreeGravity implements ITreeGravity {
+public abstract class ATreeGravity implements ITreeGravity {
 
     protected int gravity = 0;
 
-    protected AbstractTreeGravity() {
+    protected ATreeGravity() {
     }
 
     public int getGravity() {
         return this.gravity;
     }
 
-    public AbstractTreeGravity(int gravity) {
+    public ATreeGravity(int gravity) {
         this.gravity = gravity;
     }
 }
