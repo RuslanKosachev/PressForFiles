@@ -5,6 +5,9 @@ public abstract class AbstractTreeGravity implements ITreeGravity {
 
     protected int gravity = 0;
 
+    protected AbstractTreeGravity() {
+    }
+
     public int getGravity() {
         return this.gravity;
     }

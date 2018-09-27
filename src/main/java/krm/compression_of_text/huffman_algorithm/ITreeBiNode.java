@@ -1,9 +1,9 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
-public interface ITreeBiNode<ITreeGravity> {
+public interface ITreeBiNode<T> {
 
-    ITreeGravity getLeftSink();
+    T getLeftSink();
 
-    ITreeGravity getRightSink();
+    T getRightSink();
 }

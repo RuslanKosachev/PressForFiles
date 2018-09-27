@@ -12,7 +12,7 @@ public class TestCodeGravityComparator {
 
     @Test
     public void testCompare() {
-        List<ITreeGravity> listArr = new ArrayList();
+        List<ITreeGravity> listArr = new ArrayList<>();
         listArr.add(new TreeLeaf('r', 10));
         listArr.add(new TreeLeaf('r', 5));
         listArr.add(new TreeLeaf('r', 7));

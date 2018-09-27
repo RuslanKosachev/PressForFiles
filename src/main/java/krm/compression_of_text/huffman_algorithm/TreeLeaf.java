@@ -1,17 +1,17 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
-public class TreeLeaf extends AbstractTreeLeaf implements IBiTree {
+public class TreeLeaf extends AbstractTreeLeaf implements IBiTree, ITreeHuffman {
 
     public TreeLeaf(char signification, int gravity) {
         super(signification, gravity);
     }
 
-    public ITreeGravity getLeftSink() {
+    public IBiTree getLeftSink() {
         return null;
     }
 
-    public ITreeGravity getRightSink() {
+    public IBiTree getRightSink() {
         return null;
     }
 
