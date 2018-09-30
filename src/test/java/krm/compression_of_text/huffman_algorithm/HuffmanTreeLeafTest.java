@@ -4,7 +4,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
 
-public class TestHuffmanTreeLeaf {
+public class HuffmanTreeLeafTest {
 
     @Test
     public void testGetGravity() {
@@ -21,17 +21,12 @@ public class TestHuffmanTreeLeaf {
     @Test
     public void testEquals() {
         FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('r');
-        f.addWordGravity('e');
-        f.addWordGravity('r');
-        f.addWordGravity('e');
-        f.addWordGravity('u');
-        f.addWordGravity('u');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
+
+        String testDataIn = "eeerereuuii";
+        char[] testStream = testDataIn.toCharArray();
+        for (char c : testStream) {
+            f.addWordGravity(c);
+        }
         f.initCollectionOfLeaf();
         HuffmanTreeLeaf leaf = new HuffmanTreeLeaf('u', 4652);
         assertEquals(true, f.nodes.contains(leaf));

@@ -1,18 +1,21 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
+import krm.compression_of_text.compressor.Compressor;
+
+import java.io.*;
 import java.util.*;
 
 public class FactoryHuffmanCode extends FactoryHuffmanTree {
 
-    protected List<Boolean> code = new LinkedList();
-    protected Map<Character, List<Boolean>> codes = new TreeMap();
+    protected List<Boolean> code = new LinkedList<>();
+    protected Map<Character, List<Boolean>> codes = new TreeMap<>();
 
-    FactoryHuffmanCode(Comparator<ITreeGravity> comparatorCodeGravity) {
+    public FactoryHuffmanCode(Comparator<ITreeGravity> comparatorCodeGravity) {
         super(comparatorCodeGravity);
     }
 
-    public Map getCodes() {
+    public Map<Character, List<Boolean>> getCodes() {
         if (codes.isEmpty()) {
             resetCodes();
         }
@@ -36,66 +39,34 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
         if ((node.getLeftSink() == null) && (node.getRightSink() == null)) {
             this.codes.put(node.getSignification(), new LinkedList<Boolean>(code));
         }
-        if (code.isEmpty()) {
+        if (!code.isEmpty()) {
             int i = code.size() - 1;
             this.code.remove(i);
         }
     }
 
-
+    public void printCodes() {
+        System.out.println(codes.toString());
+    }
 
     // todo test
-    public static void main(String[] args) {
-        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('e');
-        f.addWordGravity('k');
-        f.addWordGravity('p');
-        f.addWordGravity('p');
-        f.addWordGravity('p');
-        f.addWordGravity('p');
-        f.addWordGravity('p');
-        f.addWordGravity('p');
-        f.addWordGravity('p');
-        f.addWordGravity('r');
-        f.addWordGravity('r');
-        f.addWordGravity('r');
-        f.addWordGravity('u');
-        f.addWordGravity('u');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
-        f.addWordGravity('i');
+    public static void main(String[] args) throws IOException {
 
-        f.toStringNode(f.getRootNode(), 0);
+        File sourceFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\sourceFile.txt");
+        Reader inBuffR = new BufferedReader(new FileReader(sourceFile));
 
+        // test Huffman tree
         FactoryHuffmanCode  factoryHuffmanCode = new FactoryHuffmanCode(CodeGravityComparator.getInstance());
+        int symbol;
+        while ((symbol = inBuffR.read()) != -1) {
+            factoryHuffmanCode.addWordGravity((char)symbol);
+        }
 
-        System.out.println(f.toString());
-        System.out.println("------------------- initCodes ---------------------------");
-        factoryHuffmanCode.initCodes(f.getRootNode());
-        System.out.println("------------------------ codes ----------------------");
-        System.out.println(factoryHuffmanCode.codes);
+        factoryHuffmanCode.getCodes();
+        factoryHuffmanCode.printRoot();
+        factoryHuffmanCode.printGravityLeafs();
+        factoryHuffmanCode.printCodes();
+
 
     }
 }
