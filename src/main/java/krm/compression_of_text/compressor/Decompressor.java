@@ -56,7 +56,6 @@ public class Decompressor {
                 inByte = this.in.read();
             }
         }
-
         this.output.flush();
         this.output.close();
     }
@@ -67,7 +66,6 @@ public class Decompressor {
         File decodeFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\decompressed.txt");
 
         try (Reader inBuffR = new BufferedReader(new FileReader(sourceFile));
-            /* test Reader - тестовый входной поток */
              Writer buffOut = new BufferedWriter(new FileWriter(decodeFile));
              BufferedInputStream inBuffR2 = new BufferedInputStream(new FileInputStream(codeFile));)
         {

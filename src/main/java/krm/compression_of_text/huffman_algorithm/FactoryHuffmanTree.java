@@ -58,7 +58,7 @@ public class FactoryHuffmanTree {
         generateHuffmanTree();
     }
 
-    public String toPrintRoot(ITreeBiNode node, int shift) {
+    public static String toPrintRoot(ITreeBiNode node, int shift) {
         String out = "";
         if (node != null) {
             //out += toStringNode((ITreeBiNode) node.getLeftSink(), shift + 10);

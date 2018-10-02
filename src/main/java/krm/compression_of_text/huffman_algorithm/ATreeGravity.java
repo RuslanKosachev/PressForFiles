@@ -1,7 +1,9 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
-public abstract class ATreeGravity implements ITreeGravity {
+import java.io.Serializable;
+
+public abstract class ATreeGravity implements ITreeGravity, Serializable {
 
     protected int gravity = 0;
 

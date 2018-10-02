@@ -1,8 +1,9 @@
 package krm.compression_of_text.huffman_algorithm;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
-public class CodeGravityComparator implements Comparator<ITreeGravity> {
+public class CodeGravityComparator implements Comparator<ITreeGravity>, Serializable {
 
     public int compare(ITreeGravity o1, ITreeGravity o2) {
         if (o1 == null && o2 != null) {

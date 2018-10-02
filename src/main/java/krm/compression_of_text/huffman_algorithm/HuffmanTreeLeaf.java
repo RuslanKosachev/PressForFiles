@@ -1,7 +1,9 @@
 package krm.compression_of_text.huffman_algorithm;
 
 
-public class HuffmanTreeLeaf extends AHuffmanTreeLeaf implements IHuffmanTree {
+import java.io.Serializable;
+
+public class HuffmanTreeLeaf extends AHuffmanTreeLeaf implements IHuffmanTree, Serializable {
 
     public HuffmanTreeLeaf(char signification, int gravity) {
         super(signification, gravity);
