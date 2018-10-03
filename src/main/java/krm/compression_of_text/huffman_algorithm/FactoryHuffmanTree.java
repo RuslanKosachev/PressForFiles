@@ -36,10 +36,10 @@ public class FactoryHuffmanTree {
     protected void generateHuffmanTree() {
         while (nodes.size() > 1) {
             Collections.sort(nodes, this.comparatorCodeGravity);
-            //System.out.println(nodes.toString() + " -before"); // todo test
+            //System.outFile.println(nodes.toString() + " -before"); // todo test
             nodes.set(1, new HuffmanTreeBiNode<IHuffmanTree>( nodes.get(0), nodes.get(1), comparatorCodeGravity));
             nodes.remove(0);
-            //System.out.println(nodes.toString() + " -after"); // todo test
+            //System.outFile.println(nodes.toString() + " -after"); // todo test
         }
         this.rootNode = ((nodes.isEmpty() && (nodes.get(0) == null)))
                         ? null
@@ -61,17 +61,17 @@ public class FactoryHuffmanTree {
     public static String toPrintRoot(ITreeBiNode node, int shift) {
         String out = "";
         if (node != null) {
-            //out += toStringNode((ITreeBiNode) node.getLeftSink(), shift + 10);
+            //outFile += toStringNode((ITreeBiNode) node.getLeftSink(), shift + 10);
             System.out.print(toPrintRoot((ITreeBiNode) node.getLeftSink(), shift + 10));
 
             for (int i = 0; i < shift; i++) {
                 System.out.print(" ");
-                //out += " ";
+                //outFile += " ";
             }
             System.out.print(node.toString() + '\n');
-            //out += node.toString() + '\n';
+            //outFile += node.toString() + '\n';
 
-            //out += toStringNode((ITreeBiNode) node.getRightSink(), shift + 10);
+            //outFile += toStringNode((ITreeBiNode) node.getRightSink(), shift + 10);
             System.out.print(toPrintRoot((ITreeBiNode) node.getRightSink(), shift + 10));
         }
         return out;

@@ -95,12 +95,12 @@ public class Compressor {
             //Compressor compressor = new Compressor(inBuffR2, buffOut, factoryHuffmanCode.getCodes());
             //compressor.compressor();
 
-            // test serializable in
+            // test serializable inFile
             //rootNode = null;
             //rootNode = (IHuffmanTree) inputObject.readObject();
             //factoryHuffmanCode.toPrintRoot(rootNode, 0);
 
-            // test serializable out affordable RandomAccessFile
+            // test serializable outFile affordable RandomAccessFile
             // сериализуем в массив байт
             ByteArrayOutputStream byteArrayOutput2 = new ByteArrayOutputStream();
             ObjectOutputStream outputObject2 = new ObjectOutputStream(byteArrayOutput2);

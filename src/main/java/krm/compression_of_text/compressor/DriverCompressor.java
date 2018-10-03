@@ -31,11 +31,13 @@ public class DriverCompressor {
         this.compressedFile = compressedFile;
     }
 
-    protected File createCompressedFile(File sourceFile) throws IOException {
+    protected File createCompressedFile(File sourceFile) throws  SecurityException, IOException {
         StringBuilder nameBin = new StringBuilder(sourceFile.getName());
-        int index = nameBin.lastIndexOf(".");
-        nameBin.delete(index + 1, nameBin.length());
-        nameBin.append("bin");
+        int index = nameBin.lastIndexOf(".txt");
+        if (index != -1) {
+            nameBin.delete(index, nameBin.length());
+        }
+        nameBin.append(".bin");
         StringBuilder fullName = new StringBuilder(sourceFile.getParent());
         fullName.append("\\");
         fullName.append("compressed_");
@@ -43,10 +45,12 @@ public class DriverCompressor {
 
         try {
             File compressedFile = new File(String.valueOf(fullName));
-            compressedFile.delete();
-            compressedFile.createNewFile();
+            if (compressedFile.exists()) {
+                compressedFile.delete();
+                compressedFile.createNewFile();
+            }
             return compressedFile;
-        } catch (IOException e) {
+        } catch (IOException | SecurityException e) {
             System.out.println("невозможно создать или покючиться к файлу: " + fullName);
             throw e;
         }
@@ -56,7 +60,7 @@ public class DriverCompressor {
         try (BufferedReader in = new BufferedReader(new FileReader(sourceFile))) {
             int symbol;
             while ((symbol = in.read()) != -1) {
-                factoryHuffman.addWordGravity((char)symbol);
+                this.factoryHuffman.addWordGravity((char)symbol);
             }
         } catch (IOException e) {
             throw e;
@@ -83,7 +87,7 @@ public class DriverCompressor {
         try (BufferedReader in = new BufferedReader(new FileReader(sourceFile));
             RandomAccessFile out = new RandomAccessFile(compressedFile, "rw")) {
 
-            out.seek(out.readInt());
+            out.seek(out.readInt() + DriverCompressor.BYTE_LENGTH_SERIALIZABLE);
 
             List<Boolean> code;
             int key = 0;
@@ -98,7 +102,7 @@ public class DriverCompressor {
                     count++;
                     if (count == 8) {
                         count = 0;
-                        out.write(buffer);
+                        out.writeByte(buffer);
                         buffer = 0;
                     }
                 }
@@ -106,15 +110,54 @@ public class DriverCompressor {
             // если есть биты кодированного текста в последнем байте то дозапишем байт
             if (count > 0) { out.write(buffer); }
             // количетво не пустых бит в последнем байте закодированного текста
-            out.write(count);
+            out.writeByte(count);
+        } catch (IOException e) {
+            throw e;
+        }
+    }
+
+    private void testCompressor(File sourceFile, File compressedFile, Map<Character, List<Boolean>> codes) throws IOException {
+        try (BufferedReader in = new BufferedReader(new FileReader(sourceFile));
+             RandomAccessFile out = new RandomAccessFile(compressedFile, "rw")) {
+
+            out.seek(0);
+
+            List<Boolean> code;
+            int key = 0;
+            byte buffer = 0;
+            byte bit = 0;
+            int count = 0;
+            while ((key = in.read()) != -1) {
+                code = codes.get((char) key);
+                for (boolean item : code) {
+                    bit = (byte) ((item) ? 1 : 0);
+                    buffer = (byte) (buffer | (bit << (7 - count)));
+                    count++;
+                    if (count == 8) {
+                        out.writeByte(buffer);
+                        count = 0;
+                        buffer = 0;
+                    }
+                }
+            }
+            // если есть биты кодированного текста в последнем байте то дозапишем байт
+            if (count > 0) { out.write(buffer); }
+            // количетво не пустых бит в последнем байте закодированного текста
+            out.writeByte(count);
         } catch (IOException e) {
             throw e;
         }
     }
 
     public static void main(String args[]) throws IOException {
-        File sourceFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\sourceFile.txt");
-        File compressedFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\compressed.bin");
+        File sourceFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\" +
+                "sourceFile.txt");
+
+        File sourceFileObject = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\" +
+                "object.bin");
+        File compressedTextBinFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\" +
+                "compressedText.bin");
+
 
         try (
              Reader inBuffR = new BufferedReader(new FileReader(sourceFile));
@@ -124,19 +167,16 @@ public class DriverCompressor {
             DriverCompressor com = new DriverCompressor(sourceFile, factoryHuffmanCode);
             com.initFactoryHuffman(sourceFile);
             com.writeObject(factoryHuffmanCode.getRootNode(), com.getCompressedFile());
+            FactoryHuffmanCode.toPrintRoot(factoryHuffmanCode.getRootNode(), 0);
             com.compressor(sourceFile, com.getCompressedFile(), factoryHuffmanCode.getCodes());
 
-            // Test читаем байты и восстанавливаем объект
-            RandomAccessFile rand = new RandomAccessFile(com.getCompressedFile(), "rw");
-            int len = rand.readInt();
-            byte[] arrFully = new byte[(int) len];
-            rand.seek(BYTE_LENGTH_SERIALIZABLE); //  смещение 4 (INT)
-            rand.readFully(arrFully); //считаем байты объекта
-            ByteArrayInputStream streamArrayByte = new ByteArrayInputStream(arrFully);
-            ObjectInputStream inputstreamObject = new ObjectInputStream(streamArrayByte);
-            IHuffmanTree rootNodeIn = (IHuffmanTree) inputstreamObject.readObject();
-            factoryHuffmanCode.toPrintRoot(rootNodeIn, 0);
-        } catch (IOException | ClassNotFoundException e) {
+            // test object.bin
+            com.writeObject(factoryHuffmanCode.getRootNode(), sourceFileObject);
+            /////////
+            // test compressedText.bin
+            com.testCompressor(sourceFile, compressedTextBinFile, factoryHuffmanCode.getCodes());
+            ////
+        } catch (IOException e) {
             /*throw*/  e.printStackTrace();
         } /*catch (ClassNotFoundException e) {
             e.printStackTrace();
