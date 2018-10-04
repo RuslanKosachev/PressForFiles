@@ -46,25 +46,4 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
     public void printCodes() {
         System.out.println(codes.toString());
     }
-
-    // todo test
-    public static void main(String[] args) throws IOException {
-
-        File sourceFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\main\\java\\krm\\compression_of_text\\compressor\\inFile.txt");
-        Reader inBuffR = new BufferedReader(new FileReader(sourceFile));
-
-        // test Huffman tree
-        FactoryHuffmanCode  factoryHuffmanCode = new FactoryHuffmanCode(CodeGravityComparator.getInstance());
-        int symbol;
-        while ((symbol = inBuffR.read()) != -1) {
-            factoryHuffmanCode.addWordGravity((char)symbol);
-        }
-
-        factoryHuffmanCode.getCodes();
-        factoryHuffmanCode.printRoot();
-        factoryHuffmanCode.printGravityLeafs();
-        factoryHuffmanCode.printCodes();
-
-
-    }
 }

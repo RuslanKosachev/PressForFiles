@@ -1,11 +1,10 @@
 package krm.compression_of_text.huffman_algorithm;
 
-import org.junit.Test;
 
+import org.junit.Test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import static org.junit.Assert.assertEquals;
 
 public class CodeGravityComparatorTest {

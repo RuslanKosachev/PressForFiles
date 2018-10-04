@@ -1,17 +1,14 @@
 package krm.compression_of_text.huffman_algorithm;
 
+
 import org.junit.Test;
-
 import static org.junit.Assert.*;
-
 
 public class FactoryHuffmanCodeTest {
 
     @Test
     public void getCodes() throws Exception {
         FactoryHuffmanCode factoryHuffmanCode = new FactoryHuffmanCode(CodeGravityComparator.getInstance());
-
-        //f.toStringNode(f.getRoot(), 0);
 
         String testDataIn = "eeeeeeekppppppprrruuiiiiiiiiiiiiiiiiiiii";
         char[] testStream = testDataIn.toCharArray();

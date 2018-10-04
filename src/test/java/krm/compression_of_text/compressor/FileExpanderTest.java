@@ -2,12 +2,9 @@ package krm.compression_of_text.compressor;
 
 
 import junitx.framework.FileAssert;
-import krm.compression_of_text.huffman_algorithm.CodeGravityComparator;
-import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
 import org.junit.Test;
 
 import java.io.File;
-
 //import org.junit.Assert.*;
 
 public class FileExpanderTest {

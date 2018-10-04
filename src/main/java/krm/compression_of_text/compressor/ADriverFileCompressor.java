@@ -38,7 +38,6 @@ public abstract class ADriverFileCompressor {
             outputObject.writeObject(rootNode);
 
             byte[] outArrayByteObject = byteArrayOutput.toByteArray();
-            System.out.println("outByteObject " + outArrayByteObject.length); //todo test размер объекта в байтах
             out.writeInt(outArrayByteObject.length); // размер объекта в байтах
             out.write(outArrayByteObject); // запись со смещением 4 (BYTE_LENGTH_SERIALIZABLE = int)
         } catch (IOException e) {
@@ -71,7 +70,7 @@ public abstract class ADriverFileCompressor {
                 }
             }
             // дозапишем байт с последними битами кодированного текста
-            /*if (countBits > 0) {*/ out.writeByte(buffer); //}
+            out.writeByte(buffer);
             // запишем количетво не пустых бит в последнем байте(buffer) закодированного текста
             out.writeByte(countBits);
         } catch (IOException e) {

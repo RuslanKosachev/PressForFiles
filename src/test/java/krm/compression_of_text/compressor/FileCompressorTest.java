@@ -6,8 +6,8 @@ import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
 
 import java.io.File;
 import org.junit.Test;
-//import org.junit.Assert.*;
 import junitx.framework.*;
+//import org.junit.Assert.*;
 
 public class FileCompressorTest {
 
@@ -23,6 +23,7 @@ public class FileCompressorTest {
 
         FileCompressor compressor = new FileCompressor(inFile,
                                                        new FactoryHuffmanCode(CodeGravityComparator.getInstance()));
+
         compressor.setOutFile(outActualFile);
         compressor.start();
 

@@ -72,18 +72,4 @@ public class FileCompressor extends ADriverFileCompressor {
             compressor(inFile, outFile, super.factoryHuffman.getCodes());
         }
     }
-
-    public static void main(String args[]) throws IOException {
-        File sourceFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\" +
-                "main\\java\\krm\\compression_of_text\\compressor\\sourceFile.txt");
-
-        try {
-            FileCompressor compressor = new FileCompressor(sourceFile, new FactoryHuffmanCode(CodeGravityComparator.getInstance()));
-            compressor.start();
-        } catch (IOException e) {
-            throw  e;
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
 }
