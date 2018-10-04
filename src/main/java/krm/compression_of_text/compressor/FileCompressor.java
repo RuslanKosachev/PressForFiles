@@ -7,13 +7,14 @@ import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
 import java.io.*;
 import java.util.Objects;
 
-public class FileCompressor extends ADriverCompressor {
+public class FileCompressor extends ADriverFileCompressor {
 
-    public static final byte BYTE_LENGTH_SERIALIZABLE = 4; // размер в байтах для хранения величины сериализованного дерева Хаффмана (расположение в начале файла)
-    public static final byte BYTE_LENGTH_LAST_NULL_BITS = 1; // размер в байтах для хранения значения количества не пустых бит кодированного текста в последнем байте  (расположение в конце файла)
+    public static final String PREFIX_BIN = ".krm.huffman.bin";
+    public static final String PREFIX_TXT = ".txt";
 
     protected File inFile;
     protected File outFile;
+    private File sourceFile;
 
     public FileCompressor(File sourceFile, FactoryHuffmanCode factoryHuffman) throws IOException {
         super(factoryHuffman);
@@ -29,6 +30,10 @@ public class FileCompressor extends ADriverCompressor {
         this.outFile = createCompressedFile(sourceFile);
     }
 
+    public File getInFile() {
+        return inFile;
+    }
+
     public File getOutFile() {
         return outFile;
     }
@@ -37,19 +42,21 @@ public class FileCompressor extends ADriverCompressor {
         this.outFile = outFile;
     }
 
-    protected File createCompressedFile(File sourceFile) throws  SecurityException, IOException {
-        StringBuilder nameBin = new StringBuilder(sourceFile.getName());
-        int index = nameBin.lastIndexOf(".txt");
-        if (index != -1) {
-            nameBin.delete(index, nameBin.length());
+    protected final File createCompressedFile(File sourceFile) throws  SecurityException, IOException {
+        this.sourceFile = sourceFile;
+        StringBuilder nameFile = new StringBuilder(sourceFile.getName());
+        // бинарное расширение
+        int indexPrefix = nameFile.lastIndexOf(FileCompressor.PREFIX_TXT);
+        if (indexPrefix != -1) {
+            nameFile.delete(indexPrefix, nameFile.length());
         }
-        nameBin.append(".bin");
-        StringBuilder fullName = new StringBuilder(sourceFile.getParent());
-        fullName.append("\\");
-        fullName.append("compressed_");
-        fullName.append(nameBin);
+        nameFile.append(FileCompressor.PREFIX_BIN);
+        // полный путь до файла
+        StringBuilder fullPath = new StringBuilder(sourceFile.getParent());
+        fullPath.append("\\");
+        fullPath.append(nameFile);
 
-        File compressedFile = new File(String.valueOf(fullName));
+        File compressedFile = new File(String.valueOf(fullPath));
         if (compressedFile.exists()) {
             compressedFile.delete();
             compressedFile.createNewFile();
@@ -58,22 +65,17 @@ public class FileCompressor extends ADriverCompressor {
         return compressedFile;
     }
 
-
-
     public void start() throws IOException, ClassNotFoundException {
-        initFactoryHuffman(inFile);
-
         if (Objects.nonNull(outFile)) {
             initFactoryHuffman(inFile);
-            writeObject(this.factoryHuffman.getRootNode(), outFile);
-            compressor(inFile, outFile, this.factoryHuffman.getCodes());
+            writeObject(super.factoryHuffman.getRootNode(), outFile);
+            compressor(inFile, outFile, super.factoryHuffman.getCodes());
         }
     }
 
     public static void main(String args[]) throws IOException {
         File sourceFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\" +
                 "main\\java\\krm\\compression_of_text\\compressor\\sourceFile.txt");
-
 
         try {
             FileCompressor compressor = new FileCompressor(sourceFile, new FactoryHuffmanCode(CodeGravityComparator.getInstance()));

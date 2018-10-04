@@ -6,15 +6,16 @@ import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
 import java.io.*;
 import java.util.*;
 
-public abstract class ADriverCompressor {
+public abstract class ADriverFileCompressor {
 
-    public static final int UNIT_BUFFER_SIZE_IN_BITS = 8;
-    public static final byte BYTE_LENGTH_SERIALIZABLE = 4; // размер в байтах для хранения величины сериализованного дерева Хаффмана (расположение в начале файла)
-    public static final byte BYTE_LENGTH_LAST_NULL_BITS = 1; // размер в байтах для хранения значения количества не пустых бит кодированного текста в последнем байте  (расположение в конце файла)
+    // размер в битах буфера для записи закодированного текста
+    public static final int  UNIT_BUFFER_SIZE_IN_BITS = 8;
+    // размер в байтах для хранения величины сериализованного дерева Хаффмана (расположение в начале файла)
+    public static final byte BYTE_LENGTH_SERIALIZABLE = 4;
 
     protected FactoryHuffmanCode factoryHuffman;
 
-    ADriverCompressor(FactoryHuffmanCode factoryHuffman) {
+    ADriverFileCompressor(FactoryHuffmanCode factoryHuffman) {
         this.factoryHuffman = factoryHuffman;
     }
 
@@ -49,12 +50,12 @@ public abstract class ADriverCompressor {
         try (BufferedReader in = new BufferedReader(new FileReader(sourceFile));
             RandomAccessFile out = new RandomAccessFile(compressedFile, "rw")) {
 
-            out.seek(out.readInt() + ADriverCompressor.BYTE_LENGTH_SERIALIZABLE);
+            out.seek(out.readInt() + ADriverFileCompressor.BYTE_LENGTH_SERIALIZABLE);
 
             List<Boolean> code;
             int key;
             byte buffer = 0;
-            byte bit = 0;
+            byte bit;
             int countBits = 0;
             while ((key = in.read()) != -1) {
                 code = codes.get((char) key);
@@ -69,9 +70,9 @@ public abstract class ADriverCompressor {
                     }
                 }
             }
-            // если есть биты кодированного текста в последнем байте то дозапишем байт
-            if (countBits > 0) { out.write(buffer); }
-            // количетво не пустых бит в последнем байте закодированного текста
+            // дозапишем байт с последними битами кодированного текста
+            /*if (countBits > 0) {*/ out.writeByte(buffer); //}
+            // запишем количетво не пустых бит в последнем байте(buffer) закодированного текста
             out.writeByte(countBits);
         } catch (IOException e) {
             throw e;
