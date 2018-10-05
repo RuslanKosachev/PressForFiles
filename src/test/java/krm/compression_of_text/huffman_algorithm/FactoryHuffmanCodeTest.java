@@ -7,7 +7,7 @@ import static org.junit.Assert.*;
 public class FactoryHuffmanCodeTest {
 
     @Test
-    public void getCodes() throws Exception {
+    public void getCodesTest() throws Exception {
         FactoryHuffmanCode factoryHuffmanCode = new FactoryHuffmanCode(CodeGravityComparator.getInstance());
 
         String testDataIn = "eeeeeeekppppppprrruuiiiiiiiiiiiiiiiiiiii";
@@ -16,7 +16,7 @@ public class FactoryHuffmanCodeTest {
             factoryHuffmanCode.addWordGravity(c);
         }
 
-        assertEquals("{e=[false, true, false], i=[false], k=[false, true, false, true, false, false, true, false], p=[false, true, false, true, false, false, true, false, true, true], r=[false, true, false, true, false, false], u=[false, true, false, true, false, false, true, false, true]}",
+        assertEquals("{e=[true, false], i=[false], k=[true, true, false, true, false], p=[true, true, true], r=[true, true, false, false], u=[true, true, false, true, true]}",
                     factoryHuffmanCode.getCodes().toString());
     }
 }

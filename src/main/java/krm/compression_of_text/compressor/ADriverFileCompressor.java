@@ -55,16 +55,16 @@ public abstract class ADriverFileCompressor {
             int key;
             byte buffer = 0;
             byte bit;
-            int countBits = 0;
+            int currentBit = 0;
             while ((key = in.read()) != -1) {
                 code = codes.get((char) key);
                 for (boolean item : code) {
                     bit = (byte) ((item) ? 1 : 0);
-                    buffer = (byte) (buffer | (bit << (UNIT_BUFFER_SIZE_IN_BITS - 1 - countBits)));
-                    countBits++;
-                    if (countBits == UNIT_BUFFER_SIZE_IN_BITS) {
+                    buffer = (byte) (buffer | (bit << (UNIT_BUFFER_SIZE_IN_BITS - 1 - currentBit)));
+                    currentBit++;
+                    if (currentBit == UNIT_BUFFER_SIZE_IN_BITS) {
                         out.writeByte(buffer);
-                        countBits = 0;
+                        currentBit = 0;
                         buffer = 0;
                     }
                 }
@@ -72,7 +72,7 @@ public abstract class ADriverFileCompressor {
             // дозапишем байт с последними битами кодированного текста
             out.writeByte(buffer);
             // запишем количетво не пустых бит в последнем байте(buffer) закодированного текста
-            out.writeByte(countBits);
+            out.writeByte(currentBit);
         } catch (IOException e) {
             throw e;
         }
