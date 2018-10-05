@@ -1,7 +1,6 @@
 package krm.compression_of_text.compressor;
 
 
-import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
 import krm.compression_of_text.huffman_algorithm.IHuffmanTree;
 
 import java.io.*;
@@ -73,27 +72,6 @@ public class FileExpander extends ADriverFileExpander {
             super.rootNode = (IHuffmanTree) readObject(inFile);
             readObject(inFile);
             expander(inFile, outFile, super.rootNode);
-        }
-    }
-
-    public static void main(String args[]) throws IOException {
-        File sourceFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\" +
-                "main\\java\\krm\\compression_of_text\\compressor\\sourceFile.krm.huffman.bin");
-
-        try {
-            // test compressor
-            FileExpander expander = new FileExpander(sourceFile);
-            expander.start();
-
-            if (expander.rootNode != null) {
-                FactoryHuffmanCode.toPrintRoot(expander.rootNode, 0);
-            }
-
-        } catch (IOException e) {
-            throw e;
-        } catch (ClassNotFoundException e) {
-            System.out.print("дессириализация объекта не удалась");
-            e.printStackTrace();
         }
     }
 }
