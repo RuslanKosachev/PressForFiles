@@ -1,14 +1,16 @@
 package krm.gui;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.*;
 
-public class tgdftg extends JDialog {
+public class TestDialog extends JDialog {
     private JPanel contentPane;
     private JButton buttonOK;
     private JButton buttonCancel;
+    private JTextField textField1;
 
-    public tgdftg() {
+    public TestDialog() {
         setContentPane(contentPane);
         setModal(true);
         getRootPane().setDefaultButton(buttonOK);
@@ -25,6 +27,8 @@ public class tgdftg extends JDialog {
             }
         });
 
+        textField1.setTransferHandler(new FileDropHandler());
+
         // call onCancel() when cross is clicked
         setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
@@ -35,10 +39,12 @@ public class tgdftg extends JDialog {
 
         // call onCancel() on ESCAPE
         contentPane.registerKeyboardAction(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                onCancel();
-            }
-        }, KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+                                               public void actionPerformed(ActionEvent e) {
+                                                   onCancel();
+                                               }
+                                           },
+                KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0),
+                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     private void onOK() {
@@ -52,9 +58,13 @@ public class tgdftg extends JDialog {
     }
 
     public static void main(String[] args) {
-        tgdftg dialog = new tgdftg();
+        TestDialog dialog = new TestDialog();
         dialog.pack();
         dialog.setVisible(true);
         System.exit(0);
     }
+
+
+
+
 }
