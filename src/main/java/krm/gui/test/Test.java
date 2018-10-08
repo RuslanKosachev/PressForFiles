@@ -1,4 +1,4 @@
-package krm.gui;
+package krm.gui.test;
 
 import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.Transferable;
@@ -18,7 +18,9 @@ public class Test {
 
             @Override
             public boolean canImport(TransferSupport support) {
-
+                if (support.getDataFlavors().length > 1) {
+                    return false;
+                }
                 return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)
                         || support.isDataFlavorSupported(DataFlavor.stringFlavor);
             }
@@ -31,27 +33,15 @@ public class Test {
                 try {
 
                     if (t.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
-
-                        Object o = t.getTransferData(DataFlavor.javaFileListFlavor);
-
-                        List<File> files = (List<File>) o;
-
-
-                        StringBuilder sb = new StringBuilder("<ul>");
-                        for (File file : files)
-                            sb.append("<li>" + file);
-
-                        label.setText("<html>" + files.size() +
-                                " files dropped<br>" + sb);
+                        List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+                        label.setText(String.valueOf(files.get(0)));
                     }
                     else if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                        String str = t.getTransferData(DataFlavor.stringFlavor).toString();
+                        label.setText(str);
 
-                        Object o = t.getTransferData(DataFlavor.stringFlavor);
-                        String str = o.toString();
+                        File file = new File(str);
 
-                        label.setText(
-                                "<html>Hell now how many files you trying to drop..<br>" +
-                                        str);
                     }
 
                 } catch (UnsupportedFlavorException e) {

@@ -1,15 +1,32 @@
 package krm.gui;
 
 import javax.swing.*;
+import javax.swing.text.JTextComponent;
 import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.Transferable;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Objects;
 
-final class FileDropHandler extends TransferHandler {
+public final class FileDropHandler extends TransferHandler {
+    JTextComponent dropLabel;
+    JLabel messageLabel;
+
+    public FileDropHandler(JTextComponent dropLabel) {
+        super();
+        this.dropLabel = dropLabel;
+    }
+
+    public FileDropHandler(JTextComponent dropLabel, JLabel messageLabel) {
+        this(dropLabel);
+        this.messageLabel = messageLabel;
+    }
+
     @Override
-    public boolean canImport(TransferHandler.TransferSupport support) {
+    public boolean canImport(TransferSupport support) {
+        //support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)
         for (DataFlavor flavor : support.getDataFlavors()) {
             if (flavor.isFlavorJavaFileListType()) {
                 return true;
@@ -20,22 +37,32 @@ final class FileDropHandler extends TransferHandler {
 
     @Override
     @SuppressWarnings("unchecked")
-    public boolean importData(TransferHandler.TransferSupport support) {
-        if (!this.canImport(support))
-            return false;
+    public boolean importData(TransferSupport support) {
+        if (Objects.nonNull(messageLabel)) {
+            messageLabel.setText("");
+        }
 
-        List<File> files;
+        Transferable t = support.getTransferable();
+
         try {
-            files = (List<File>) support.getTransferable()
-                    .getTransferData(DataFlavor.javaFileListFlavor);
+            if (t.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
+                List<File> files = (List<File>) t.getTransferData(DataFlavor.javaFileListFlavor);
+                dropLabel.setText(String.valueOf(files.get(0)));
+            } else if (t.isDataFlavorSupported(DataFlavor.stringFlavor)) {
+                String str = t.getTransferData(DataFlavor.stringFlavor).toString();
+                dropLabel.setText(str);
+
+                if (!(new File(str).exists())) {
+                    throw new IOException("не является файлом");
+                }
+            }
         } catch (UnsupportedFlavorException | IOException e) {
-            // should never happen (or JDK is buggy)
-            return false;
+            if (Objects.nonNull(messageLabel)) {
+                messageLabel.setText(e.getMessage());
+            }
+            e.printStackTrace();
         }
 
-        for (File file: files) {
-            // do something...
-        }
-        return true;
+        return super.importData(support);
     }
 }
