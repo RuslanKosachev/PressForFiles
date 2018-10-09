@@ -1,4 +1,4 @@
-package krm.gui;
+package krm.gui.handler;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;
@@ -26,13 +26,11 @@ public final class FileDropHandler extends TransferHandler {
 
     @Override
     public boolean canImport(TransferSupport support) {
-        //support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)
-        for (DataFlavor flavor : support.getDataFlavors()) {
-            if (flavor.isFlavorJavaFileListType()) {
-                return true;
-            }
+        if (support.getDataFlavors().length > 1) {
+            return false;
         }
-        return false;
+        return support.isDataFlavorSupported(DataFlavor.javaFileListFlavor)
+                || support.isDataFlavorSupported(DataFlavor.stringFlavor);
     }
 
     @Override

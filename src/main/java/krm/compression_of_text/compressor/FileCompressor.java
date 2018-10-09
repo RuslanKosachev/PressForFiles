@@ -64,7 +64,7 @@ public class FileCompressor extends ADriverFileCompressor {
         return compressedFile;
     }
 
-    public void start() throws IOException, ClassNotFoundException {
+    public void start() throws IOException {
         if (Objects.nonNull(outFile)) {
             initFactoryHuffman(inFile);
             writeObject(super.factoryHuffman.getRootNode(), outFile);

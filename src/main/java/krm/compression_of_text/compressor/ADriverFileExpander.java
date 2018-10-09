@@ -29,7 +29,10 @@ public abstract class ADriverFileExpander {
             throw e;
         } catch (IOException e) {
             throw e;
-        }
+        } /*catch (Exception e) {
+            System.err.println(e.getMessage());
+            throw e;
+        }*/
     }
 
     protected void expander(File compressedFile, File decompressedFile, IHuffmanTree root) throws IOException {

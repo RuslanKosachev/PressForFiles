@@ -28,8 +28,8 @@ public class Test {
             @Override
             @SuppressWarnings("unchecked")
             public boolean importData(TransferSupport support) {
-
                 Transferable t = support.getTransferable();
+
                 try {
 
                     if (t.isDataFlavorSupported(DataFlavor.javaFileListFlavor)) {
@@ -43,7 +43,6 @@ public class Test {
                         File file = new File(str);
 
                     }
-
                 } catch (UnsupportedFlavorException e) {
                     // TODO Auto-generated catch block
                     e.printStackTrace();

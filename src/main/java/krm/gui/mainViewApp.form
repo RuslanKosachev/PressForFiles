@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="krm.gui.ViewApp">
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="krm.gui.mainViewApp">
   <grid id="27dc6" binding="contentPane" layout-manager="GridBagLayout">
     <constraints>
       <xy x="20" y="20" width="512" height="500"/>
@@ -52,11 +52,16 @@
         <children>
           <component id="dd211" class="javax.swing.JButton" binding="reestablishButton" default-binding="true">
             <constraints>
-              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="4" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <grid row="0" column="1" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="30" bottom="0" right="0" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
               <alignmentY value="0.0"/>
+              <autoscrolls value="false"/>
+              <enabled value="true"/>
+              <focusTraversalPolicyProvider value="false"/>
+              <focusable value="true"/>
+              <hideActionText value="false"/>
               <horizontalTextPosition value="0"/>
               <margin top="2" left="2" bottom="2" right="2"/>
               <selected value="false"/>
@@ -66,8 +71,8 @@
           </component>
           <component id="c11d8" class="javax.swing.JButton" binding="compressButton">
             <constraints>
-              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-              <gridbag weightx="0.0" weighty="0.0"/>
+              <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+              <gridbag top="0" left="0" bottom="0" right="30" weightx="0.0" weighty="0.0"/>
             </constraints>
             <properties>
               <alignmentY value="0.0"/>
@@ -89,7 +94,7 @@
           <alignmentX value="0.0"/>
           <alignmentY value="0.0"/>
           <autoscrolls value="false"/>
-          <background color="-4842"/>
+          <background color="-18850"/>
           <debugGraphicsOptions value="1"/>
           <doubleBuffered value="false"/>
           <enabled value="true"/>
@@ -135,6 +140,7 @@
               <gridbag weightx="1.0" weighty="0.0"/>
             </constraints>
             <properties>
+              <doubleBuffered value="false"/>
               <dragEnabled value="false"/>
               <dropMode value="USE_SELECTION"/>
               <editable value="true"/>
@@ -142,6 +148,9 @@
               <opaque value="true"/>
               <text value=""/>
             </properties>
+            <clientProperties>
+              <html.disable class="java.lang.Boolean" value="false"/>
+            </clientProperties>
           </component>
         </children>
       </grid>

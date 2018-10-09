@@ -1,11 +1,14 @@
 package krm.gui;
 
+import krm.gui.handler.CompressFileHandler;
+import krm.gui.handler.ExpanderFileHandler;
+import krm.gui.handler.FileDropHandler;
+
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-
-public class ViewApp extends JFrame {
+public class mainViewApp extends JFrame {
     private JPanel contentPane;
     private JTextField pathFileField;
     private JPanel pathPanel;
@@ -14,18 +17,23 @@ public class ViewApp extends JFrame {
     private JButton compressButton;
     private JButton reestablishButton;
 
-    public ViewApp() throws HeadlessException {
+    public mainViewApp() throws HeadlessException {
         setContentPane(contentPane);
         setTitle("press for files");
+        setLocationRelativeTo(null);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
+        // drop file
         pathFileField.setTransferHandler(new FileDropHandler(pathFileField, messagesLabel));
+
+        compressButton.addActionListener(new CompressFileHandler(pathFileField, messagesLabel));
+        reestablishButton.addActionListener(new ExpanderFileHandler(pathFileField, messagesLabel));
     }
 
     public static void main(String[] args) {
-        ViewApp viewApp = new ViewApp();
+        mainViewApp viewApp = new mainViewApp();
     }
 
     {
@@ -82,6 +90,11 @@ public class ViewApp extends JFrame {
         bottomPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font(bottomPanel.getFont().getName(), bottomPanel.getFont().getStyle(), bottomPanel.getFont().getSize())));
         reestablishButton = new JButton();
         reestablishButton.setAlignmentY(0.0f);
+        reestablishButton.setAutoscrolls(false);
+        reestablishButton.setEnabled(true);
+        reestablishButton.setFocusTraversalPolicyProvider(false);
+        reestablishButton.setFocusable(true);
+        reestablishButton.setHideActionText(false);
         reestablishButton.setHorizontalTextPosition(0);
         reestablishButton.setMargin(new Insets(2, 2, 2, 2));
         reestablishButton.setSelected(false);
@@ -90,7 +103,8 @@ public class ViewApp extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx = 1;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.EAST;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(0, 30, 0, 0);
         bottomPanel.add(reestablishButton, gbc);
         compressButton = new JButton();
         compressButton.setAlignmentY(0.0f);
@@ -102,13 +116,14 @@ public class ViewApp extends JFrame {
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
-        gbc.anchor = GridBagConstraints.WEST;
+        gbc.fill = GridBagConstraints.BOTH;
+        gbc.insets = new Insets(0, 0, 0, 30);
         bottomPanel.add(compressButton, gbc);
         messagesLabel = new JLabel();
         messagesLabel.setAlignmentX(0.0f);
         messagesLabel.setAlignmentY(0.0f);
         messagesLabel.setAutoscrolls(false);
-        messagesLabel.setBackground(new Color(-4842));
+        messagesLabel.setBackground(new Color(-18850));
         messagesLabel.setDebugGraphicsOptions(1);
         messagesLabel.setDoubleBuffered(false);
         messagesLabel.setEnabled(true);
@@ -121,7 +136,7 @@ public class ViewApp extends JFrame {
         messagesLabel.setOpaque(true);
         messagesLabel.setPreferredSize(new Dimension(400, 20));
         messagesLabel.setRequestFocusEnabled(true);
-        messagesLabel.setText("*");
+        messagesLabel.setText("");
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 1;
@@ -147,12 +162,14 @@ public class ViewApp extends JFrame {
         contentPane.add(pathPanel, gbc);
         pathPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0), "path", TitledBorder.LEFT, TitledBorder.TOP, new Font(pathPanel.getFont().getName(), pathPanel.getFont().getStyle(), pathPanel.getFont().getSize())));
         pathFileField = new JTextField();
+        pathFileField.setDoubleBuffered(false);
         pathFileField.setDragEnabled(false);
         pathFileField.setDropMode(DropMode.USE_SELECTION);
         pathFileField.setEditable(true);
         pathFileField.setEnabled(true);
         pathFileField.setOpaque(true);
         pathFileField.setText("");
+        pathFileField.putClientProperty("html.disable", Boolean.FALSE);
         gbc = new GridBagConstraints();
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -160,7 +177,6 @@ public class ViewApp extends JFrame {
         gbc.anchor = GridBagConstraints.WEST;
         gbc.fill = GridBagConstraints.HORIZONTAL;
         pathPanel.add(pathFileField, gbc);
-        messagesLabel.setLabelFor(pathFileField);
     }
 
     /**
