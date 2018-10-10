@@ -13,33 +13,30 @@ public abstract class ADriverFileExpander {
 
     protected IHuffmanTree rootNode;
 
-    protected Object readObject(File compressedFile) throws IOException, ClassNotFoundException {
+    protected Object readObject(File compressedFile) throws Exception {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r")) {
             // десериализуем rootNode
             int lengthArrObject = in.readInt();
             byte[] objectArr = new byte[lengthArrObject];
-            in.seek(ADriverFileCompressor.BYTE_LENGTH_SERIALIZABLE); // смещение 4 (INT)
+            in.seek(ADriverFileCompressor.LENGTH_SERIALIZABLE_IN_BYTE); // смещение 4 (INT)
             in.readFully(objectArr); //считаем байты объекта
             ByteArrayInputStream streamArrayByte = new ByteArrayInputStream(objectArr);
             ObjectInputStream streamObject = new ObjectInputStream(streamArrayByte);
             IHuffmanTree rootNodeIn = (IHuffmanTree) streamObject.readObject();
             return rootNodeIn;
-        } catch (ClassNotFoundException e) {
-            System.err.println("фаил поврежден: " + compressedFile.getAbsolutePath());
+        } catch (ClassNotFoundException | IOException | NegativeArraySizeException e) {
+            e.printStackTrace();
             throw e;
-        } catch (IOException e) {
-            throw e;
-        } /*catch (Exception e) {
-            System.err.println(e.getMessage());
-            throw e;
-        }*/
+        }
     }
 
     protected void expander(File compressedFile, File decompressedFile, IHuffmanTree root) throws IOException {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r");
-             BufferedWriter out = new BufferedWriter(new FileWriter(decompressedFile))) {
+             BufferedWriter out = new BufferedWriter(
+                     new OutputStreamWriter(
+                             new FileOutputStream(decompressedFile), ADriverFileCompressor.CHARSET_NAME))) {
             //переходим на первый байт закодированного текста
-            in.seek(in.readInt() + ADriverFileCompressor.BYTE_LENGTH_SERIALIZABLE);
+            in.seek(in.readInt() + ADriverFileCompressor.LENGTH_SERIALIZABLE_IN_BYTE);
 
             IHuffmanTree rootIn = root;
             boolean bit;
@@ -78,6 +75,7 @@ public abstract class ADriverFileExpander {
                 }
             }
         } catch (IOException e) {
+            e.printStackTrace();
             throw e;
         }
     }

@@ -67,7 +67,7 @@ public class FileExpander extends ADriverFileExpander {
         return expanderFile;
     }
 
-    public void start() throws IOException, ClassNotFoundException {
+    public void start() throws Exception {
         if (Objects.nonNull(outFile)) {
             super.rootNode = (IHuffmanTree) readObject(inFile);
             readObject(inFile);

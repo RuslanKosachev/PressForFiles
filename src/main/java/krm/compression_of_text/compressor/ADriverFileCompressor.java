@@ -8,10 +8,11 @@ import java.util.*;
 
 public abstract class ADriverFileCompressor {
 
+    public static final String CHARSET_NAME = "UTF-8";
     // размер в битах буфера для записи закодированного текста
     public static final int  UNIT_BUFFER_SIZE_IN_BITS = 8;
     // размер в байтах для хранения величины сериализованного дерева Хаффмана (расположение в начале файла)
-    public static final byte BYTE_LENGTH_SERIALIZABLE = 4;
+    public static final byte LENGTH_SERIALIZABLE_IN_BYTE = 4;
 
     protected FactoryHuffmanCode factoryHuffman;
 
@@ -20,12 +21,14 @@ public abstract class ADriverFileCompressor {
     }
 
     protected void initFactoryHuffman(File sourceFile) throws IOException {
-        try (BufferedReader in = new BufferedReader(new FileReader(sourceFile))) {
+        try (BufferedReader in = new BufferedReader(
+                new InputStreamReader(new FileInputStream(sourceFile), CHARSET_NAME))) {
             int symbol;
             while ((symbol = in.read()) != -1) {
                 this.factoryHuffman.addWordGravity((char)symbol);
             }
         } catch (IOException e) {
+            e.printStackTrace();
             throw e;
         }
     }
@@ -39,17 +42,20 @@ public abstract class ADriverFileCompressor {
 
             byte[] outArrayByteObject = byteArrayOutput.toByteArray();
             out.writeInt(outArrayByteObject.length); // размер объекта в байтах
-            out.write(outArrayByteObject); // запись со смещением 4 (BYTE_LENGTH_SERIALIZABLE = int)
+            out.write(outArrayByteObject); // запись со смещением 4 (LENGTH_SERIALIZABLE_IN_BYTE = int)
         } catch (IOException e) {
+            e.printStackTrace();
             throw e;
         }
     }
 
-    protected void compressor(File sourceFile, File compressedFile, Map<Character, List<Boolean>> codes) throws IOException {
-        try (BufferedReader in = new BufferedReader(new FileReader(sourceFile));
+    protected void compressor(File sourceFile, File compressedFile, Map<Character, List<Boolean>> codes)
+            throws IOException {
+        try (BufferedReader in = new BufferedReader(
+                new InputStreamReader(new FileInputStream(sourceFile), CHARSET_NAME));
             RandomAccessFile out = new RandomAccessFile(compressedFile, "rw")) {
 
-            out.seek(out.readInt() + ADriverFileCompressor.BYTE_LENGTH_SERIALIZABLE);
+            out.seek(out.readInt() + ADriverFileCompressor.LENGTH_SERIALIZABLE_IN_BYTE);
 
             List<Boolean> code;
             int key;
@@ -74,6 +80,7 @@ public abstract class ADriverFileCompressor {
             // запишем количетво не пустых бит в последнем байте(buffer) закодированного текста
             out.writeByte(currentBit);
         } catch (IOException e) {
+            e.printStackTrace();
             throw e;
         }
     }

@@ -18,7 +18,7 @@ public class ExpanderFileHandler extends AFileHandler implements ActionListener 
        super(pathFileField, messageLabel);
     }
 
-    protected void toHandler(File inFile) throws IOException, ClassNotFoundException {
+    protected void toHandler(File inFile) throws Exception {
         FileExpander expander = new FileExpander(inFile);
         expander.start();
     }

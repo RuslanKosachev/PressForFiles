@@ -12,7 +12,7 @@ import junitx.framework.*;
 public class FileCompressorTest {
 
     @Test
-    public void start() throws Exception {
+    public void startTest() throws Exception {
         File inFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\" +
                 "test\\java\\krm\\compression_of_text\\compressor\\test_files\\testCompressorIn.txt");
 
@@ -22,11 +22,13 @@ public class FileCompressorTest {
                 "test\\java\\krm\\compression_of_text\\compressor\\test_files\\testCompressorActual.krm.huffman.bin");
 
         FileCompressor compressor = new FileCompressor(inFile,
-                                                       new FactoryHuffmanCode(CodeGravityComparator.getInstance()));
+            new FactoryHuffmanCode(CodeGravityComparator.getInstance()));
 
+        outActualFile.delete();
         compressor.setOutFile(outActualFile);
         compressor.start();
 
         FileAssert.assertEquals(outExpectedFile, outActualFile);
+
     }
 }

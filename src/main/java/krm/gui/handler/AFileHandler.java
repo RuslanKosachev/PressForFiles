@@ -1,9 +1,5 @@
 package krm.gui.handler;
 
-import krm.compression_of_text.compressor.FileCompressor;
-import krm.compression_of_text.huffman_algorithm.CodeGravityComparator;
-import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +26,7 @@ public abstract class AFileHandler implements ActionListener {
     public void actionPerformed(ActionEvent ev) {
         try {
             File inFile = new File(pathFileField.getText());
+
             if (!(inFile.exists())) {
                 throw new IOException("не является файлом");
             }
@@ -44,14 +41,11 @@ public abstract class AFileHandler implements ActionListener {
             }
         } catch (Exception ex) {
             if (Objects.nonNull(messageLabel)) {
-                messageLabel.setText("ошибка. " + ex.getMessage());
+                messageLabel.setText("ошибка" + " - " + ex.getMessage() + " - " + ex.toString());
             }
             ex.printStackTrace();
         }
-
-
     }
 
-    protected abstract void toHandler(File inFile) throws IOException, ClassNotFoundException;
-
+    protected abstract void toHandler(File inFile) throws Exception;
 }
