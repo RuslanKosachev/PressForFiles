@@ -1,7 +1,5 @@
 package krm.compression_of_text.huffman_algorithm;
 
-
-import java.io.*;
 import java.util.*;
 
 public class FactoryHuffmanCode extends FactoryHuffmanTree {
@@ -24,17 +22,16 @@ public class FactoryHuffmanCode extends FactoryHuffmanTree {
         this.initCodes(super.getRootNode());
     }
 
-
     protected void initCodes(IHuffmanTree node) {
-        if (node.getLeftSink() != null) {
+        if (Objects.nonNull(node.getLeftSink())) {
             this.code.add(false);
             initCodes((IHuffmanTree) node.getLeftSink());
         }
-        if (node.getRightSink() != null) {
+        if (Objects.nonNull(node.getRightSink())) {
             this.code.add(true);
             initCodes((IHuffmanTree) node.getRightSink());
         }
-        if ((node.getLeftSink() == null) && (node.getRightSink() == null)) {
+        if (Objects.isNull(node.getLeftSink()) && Objects.isNull(node.getRightSink())) {
             this.codes.put(node.getSignification(), new LinkedList<Boolean>(code));
         }
         if (!code.isEmpty()) {

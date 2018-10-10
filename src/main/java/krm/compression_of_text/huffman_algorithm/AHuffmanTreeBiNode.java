@@ -1,10 +1,11 @@
 package krm.compression_of_text.huffman_algorithm;
 
-
 import java.io.Serializable;
 import java.util.Comparator;
 
 public abstract class AHuffmanTreeBiNode<T extends ITreeGravity> extends ATreeGravity implements ITreeBiNode, Serializable {
+
+    private static final long serialVersionUID = 8683452581122892188L;
 
     protected T leftSink = null;
     protected T rightSink = null;

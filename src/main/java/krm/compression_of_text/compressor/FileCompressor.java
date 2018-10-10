@@ -1,6 +1,5 @@
 package krm.compression_of_text.compressor;
 
-
 import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
 
 import java.io.*;

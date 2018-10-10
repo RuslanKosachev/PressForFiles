@@ -1,9 +1,10 @@
 package krm.compression_of_text.huffman_algorithm;
 
-
 import java.io.Serializable;
 
 public class HuffmanTreeLeaf extends AHuffmanTreeLeaf implements IHuffmanTree, Serializable {
+
+    private static final long serialVersionUID = 8683452581122892188L;
 
     public HuffmanTreeLeaf(char signification, int gravity) {
         super(signification, gravity);

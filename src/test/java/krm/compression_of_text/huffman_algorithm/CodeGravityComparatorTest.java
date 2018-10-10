@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
 public class CodeGravityComparatorTest {
 
     @Test
-    public void testCompare() {
+    public void compareTest() {
         List<ITreeGravity> listArr = new ArrayList<>();
         listArr.add(new HuffmanTreeLeaf('r', 10));
         listArr.add(new HuffmanTreeLeaf('r', 5));

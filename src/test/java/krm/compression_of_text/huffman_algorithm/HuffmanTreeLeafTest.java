@@ -6,19 +6,19 @@ import static org.junit.Assert.assertEquals;
 public class HuffmanTreeLeafTest {
 
     @Test
-    public void testGetGravity() {
+    public void getGravityTest() {
         HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('a', 23);
         assertEquals(23, l1.getGravity());
     }
 
     @Test
-    public void testGetSignification() {
+    public void getSignificationTest() {
         HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('t', 1);
         assertEquals((Character) 't', l1.getSignification());
     }
 
     @Test
-    public void testEquals() {
+    public void equalsTest() {
         FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
 
         String testDataIn = "eeerereuuii";

@@ -7,7 +7,7 @@ import static org.junit.Assert.assertEquals;
 public class FactoryHuffmanTreeTest {
 
     @Test
-    public void testAddWordGravity() {
+    public void addWordGravityTest() {
         FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
 
         String testDataIn = "eeerereuuuuiii";
@@ -23,7 +23,7 @@ public class FactoryHuffmanTreeTest {
     }
 
     @Test
-    public void testGetRootNode() {
+    public void getRootNodeTest() {
         FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
 
         String testDataIn = "ieeeeerruuoooooooooooooooo";
@@ -31,6 +31,8 @@ public class FactoryHuffmanTreeTest {
         for (char c : testStream) {
             f.addWordGravity(c);
         }
+
         assertEquals(26, f.getRootNode().getGravity());
+        System.out.println(f.toStringGravityLeafs());
     }
 }

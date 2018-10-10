@@ -1,49 +1,28 @@
 package krm.compression_of_text.huffman_algorithm;
 
-import java.io.IOException;
 import java.util.*;
 
 public class FactoryHuffmanTree {
 
     protected Map<Character, Integer> gravityLeafs = new HashMap();
-    protected List<IHuffmanTree> nodes = new ArrayList();
-
-    Comparator<ITreeGravity> comparatorCodeGravity = null;
-
-    IHuffmanTree rootNode = null;
+    protected ArrayList<IHuffmanTree> nodes = new ArrayList<>();
+    protected Comparator<ITreeGravity> comparatorCodeGravity = null;
+    protected IHuffmanTree rootNode = null;
 
     FactoryHuffmanTree(Comparator<ITreeGravity> comparatorCodeGravity) {
         this.comparatorCodeGravity = comparatorCodeGravity;
     }
 
-    public void addWordGravity(char word) {
+    public Map<Character, Integer> getGravityLeafs() {
+        return gravityLeafs;
+    }
+
+    public void addWordGravity(char signification) {
         int gravity = 1;
-        if (gravityLeafs.containsKey(word)) {
-            gravity += gravityLeafs.get(word);
+        if (gravityLeafs.containsKey(signification)) {
+            gravity += gravityLeafs.get(signification);
         }
-        gravityLeafs.put(word, gravity);
-    }
-
-    protected void initCollectionOfLeaf() {
-        for (Map.Entry item : gravityLeafs.entrySet()) {
-            Character key = (Character) item.getKey();
-            Integer value = (Integer) item.getValue();
-
-            nodes.add(new HuffmanTreeLeaf(key.charValue(), value.intValue()));
-        }
-    }
-
-    protected void generateHuffmanTree() {
-        while (nodes.size() > 1) {
-            Collections.sort(nodes, this.comparatorCodeGravity);
-            //System.outFile.println(nodes.toString() + " -before"); // todo test
-            nodes.set(1, new HuffmanTreeBiNode<IHuffmanTree>( nodes.get(0), nodes.get(1), comparatorCodeGravity));
-            nodes.remove(0);
-            //System.outFile.println(nodes.toString() + " -after"); // todo test
-        }
-        this.rootNode = ((nodes.isEmpty() && (nodes.get(0) == null)))
-                        ? null
-                        : nodes.get(0);
+        gravityLeafs.put(signification, gravity);
     }
 
     public IHuffmanTree getRootNode() {
@@ -58,23 +37,41 @@ public class FactoryHuffmanTree {
         generateHuffmanTree();
     }
 
-    public static String toPrintRoot(ITreeBiNode node, int shift) {
-        String out = "";
+    protected void initCollectionOfLeaf() {
+        for (Map.Entry item : gravityLeafs.entrySet()) {
+            Character key = (Character) item.getKey();
+            Integer value = (Integer) item.getValue();
+
+            nodes.add(new HuffmanTreeLeaf(key.charValue(), value.intValue()));
+        }
+    }
+
+    protected void generateHuffmanTree() {
+        IHuffmanTree newNode;
+        while (nodes.size() > 1) {
+            nodes.sort(this.comparatorCodeGravity);
+            // новый узел из двух начальных элементов с удалением использованных элемементов
+            newNode = new HuffmanTreeBiNode<IHuffmanTree>(nodes.get(0), nodes.get(1), comparatorCodeGravity);
+            nodes.set(1, newNode);
+            nodes.remove(0);
+        }
+        this.rootNode = ((nodes.isEmpty() && (nodes.get(0) == null)))
+                        ? null
+                        : nodes.get(0);
+    }
+
+    public static int toPrintRoot(ITreeBiNode node, int shift) {
         if (node != null) {
-            //outFile += toStringNode((ITreeBiNode) node.getLeftSink(), shift + 10);
             System.out.print(toPrintRoot((ITreeBiNode) node.getLeftSink(), shift + 10));
 
             for (int i = 0; i < shift; i++) {
                 System.out.print(" ");
-                //outFile += " ";
             }
             System.out.print(node.toString() + '\n');
-            //outFile += node.toString() + '\n';
 
-            //outFile += toStringNode((ITreeBiNode) node.getRightSink(), shift + 10);
             System.out.print(toPrintRoot((ITreeBiNode) node.getRightSink(), shift + 10));
         }
-        return out;
+        return 1;
     }
 
     public void printRoot() {
@@ -85,4 +82,22 @@ public class FactoryHuffmanTree {
         System.out.println(gravityLeafs.toString());
     }
 
+    public String toStringGravityLeafs() {
+        StringBuilder result = new StringBuilder("symbol frequencies: \n");
+        int sum = 0;
+
+        for (Map.Entry item : gravityLeafs.entrySet()) {
+            Character key = (Character) item.getKey();
+            Integer value = (Integer) item.getValue();
+
+            result.append("{" + key.charValue() + "} = " + value.intValue() + "\n");
+
+            sum += value.intValue();
+        }
+
+        result.append("total characters: ");
+        result.append( sum);
+
+        return String.valueOf(result);
+    }
 }

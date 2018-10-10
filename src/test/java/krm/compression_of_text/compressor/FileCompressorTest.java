@@ -13,13 +13,13 @@ public class FileCompressorTest {
 
     @Test
     public void startTest() throws Exception {
-        File inFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\" +
-                "test\\java\\krm\\compression_of_text\\compressor\\test_files\\testCompressorIn.txt");
+        File inFile = new File("src\\test\\java\\krm\\compression_of_text\\compressor\\test_files\\" +
+                "testCompressorIn.txt");
 
-        File outExpectedFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\" +
-                "test\\java\\krm\\compression_of_text\\compressor\\test_files\\testCompressorExpected.krm.huffman.bin");
-        File outActualFile = new File("E:\\DATA\\архив\\проекты\\project_java\\project\\PressForFiles\\src\\" +
-                "test\\java\\krm\\compression_of_text\\compressor\\test_files\\testCompressorActual.krm.huffman.bin");
+        File outExpectedFile = new File("src\\test\\java\\krm\\compression_of_text\\compressor\\test_files\\" +
+                "testCompressorExpected.krm.huffman.bin");
+        File outActualFile = new File("src\\test\\java\\krm\\compression_of_text\\compressor\\test_files\\" +
+                "testCompressorActual.krm.huffman.bin");
 
         FileCompressor compressor = new FileCompressor(inFile,
             new FactoryHuffmanCode(CodeGravityComparator.getInstance()));
@@ -29,6 +29,5 @@ public class FileCompressorTest {
         compressor.start();
 
         FileAssert.assertEquals(outExpectedFile, outActualFile);
-
     }
 }

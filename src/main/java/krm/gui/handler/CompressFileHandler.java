@@ -9,8 +9,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-
 public class CompressFileHandler extends AFileHandler implements ActionListener {
+
+    private JTextArea textArea1;
 
     public CompressFileHandler(JTextField pathFileField) {
         super(pathFileField);
@@ -20,9 +21,17 @@ public class CompressFileHandler extends AFileHandler implements ActionListener 
        super(pathFileField, messageLabel);
     }
 
+    public CompressFileHandler(JTextField pathFileField, JLabel messageLabel, JTextArea textArea1) {
+        this(pathFileField, messageLabel);
+        this.textArea1 = textArea1;
+    }
+
     protected void toHandler(File inFile) throws IOException {
-        FileCompressor compressor = new FileCompressor(inFile,
-                new FactoryHuffmanCode(CodeGravityComparator.getInstance()));
+        FactoryHuffmanCode f = new FactoryHuffmanCode(CodeGravityComparator.getInstance());
+
+        FileCompressor compressor = new FileCompressor(inFile, f);
         compressor.start();
+
+        textArea1.setText(f.toStringGravityLeafs());
     }
 }

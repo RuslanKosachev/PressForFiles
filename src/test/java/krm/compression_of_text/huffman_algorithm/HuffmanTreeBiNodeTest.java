@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 public class HuffmanTreeBiNodeTest {
 
     @Test
-    public void testGetGravity() {
+    public void getGravityTest() {
         HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('a', 1);
         HuffmanTreeLeaf l2 = new HuffmanTreeLeaf('a', 3);
         HuffmanTreeLeaf l3 = new HuffmanTreeLeaf('a', 5);
@@ -19,7 +19,7 @@ public class HuffmanTreeBiNodeTest {
     }
 
     @Test
-    public void testGetLeftSink() {
+    public void getLeftSinkTest() {
         HuffmanTreeBiNode treeNode = new HuffmanTreeBiNode(new HuffmanTreeLeaf('t', 6445),
                                             new HuffmanTreeLeaf('p', 879),
                                             CodeGravityComparator.getInstance());
@@ -27,7 +27,7 @@ public class HuffmanTreeBiNodeTest {
     }
 
     @Test
-    public void testGetRightSink() {
+    public void getRightSinkTest() {
         HuffmanTreeBiNode treeNode = new HuffmanTreeBiNode(new HuffmanTreeLeaf('t', 879),
                                             new HuffmanTreeLeaf('p', 6445),
                                             CodeGravityComparator.getInstance());
