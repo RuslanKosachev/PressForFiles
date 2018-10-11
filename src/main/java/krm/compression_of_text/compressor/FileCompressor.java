@@ -12,23 +12,13 @@ public class FileCompressor extends ADriverFileCompressor {
 
     protected File inFile;
     protected File outFile;
-    private File sourceFile;
 
-    public FileCompressor(File sourceFile, FactoryHuffmanCode factoryHuffman)
+    public FileCompressor(File inFile, FactoryHuffmanCode factoryHuffman)
             throws IOException, SecurityException {
         super(factoryHuffman);
 
-        if (!sourceFile.exists()) {
-            throw new IOException("фаил отсуцтвует "
-                    + sourceFile.getPath());
-        }
-        else if (!sourceFile.canRead()) {
-            throw new SecurityException("фаил защище от чтения: "
-                    + sourceFile.getAbsolutePath());
-        }
-
-        this.inFile = sourceFile;
-        this.outFile = createCompressedFile(sourceFile);
+        this.inFile = inFile;
+        this.outFile = createCompressedFile(inFile);
     }
 
     public File getInFile() {
@@ -45,10 +35,8 @@ public class FileCompressor extends ADriverFileCompressor {
 
     protected final File createCompressedFile(File sourceFile)
             throws IOException, SecurityException {
-        this.sourceFile = sourceFile;
-
         StringBuilder nameFile = new StringBuilder(sourceFile.getName());
-        // устанавливаем бинарное расширение
+        // устанавливаем бинарное расширение - PREFIX_BIN
         int indexPrefix = nameFile.lastIndexOf(FileCompressor.PREFIX_TXT);
         if (indexPrefix != -1) {
             nameFile.delete(indexPrefix, nameFile.length());

@@ -6,13 +6,13 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class ExpanderFileHandler extends AFileHandler implements ActionListener {
+public class FileExpanderHandler extends AFileHandler implements ActionListener {
 
-    public ExpanderFileHandler(JTextField pathFileField) {
+    public FileExpanderHandler(JTextField pathFileField) {
         super(pathFileField);
     }
 
-    public ExpanderFileHandler(JTextField pathFileField, JLabel messageLabel) {
+    public FileExpanderHandler(JTextField pathFileField, JLabel messageLabel) {
        super(pathFileField, messageLabel);
     }
 

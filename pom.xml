@@ -38,7 +38,7 @@
                         <manifest>
                             <addClasspath>true</addClasspath>
                             <classpathPrefix>lib/</classpathPrefix>
-                            <mainClass>krm.gui.MainViewApp</mainClass>
+                            <mainClass>krm.gui.MainView</mainClass>
                         </manifest>
                     </archive>
                 </configuration>

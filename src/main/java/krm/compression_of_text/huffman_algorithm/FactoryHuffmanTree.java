@@ -6,7 +6,7 @@ public class FactoryHuffmanTree {
 
     protected Map<Character, Integer> gravityLeafs = new HashMap();
     protected ArrayList<IHuffmanTree> nodes = new ArrayList<>();
-    protected Comparator<ITreeGravity> comparatorCodeGravity = null;
+    protected Comparator<ITreeGravity> comparatorCodeGravity;
     protected IHuffmanTree rootNode = null;
 
     FactoryHuffmanTree(Comparator<ITreeGravity> comparatorCodeGravity) {

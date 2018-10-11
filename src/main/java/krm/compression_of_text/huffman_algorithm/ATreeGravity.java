@@ -6,7 +6,7 @@ public abstract class ATreeGravity implements ITreeGravity, Serializable{
 
     private static final long serialVersionUID = 8683452581122892188L;
 
-    protected int gravity = 0;
+    protected int gravity;
 
     public int getGravity() {
         return this.gravity;

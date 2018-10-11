@@ -8,20 +8,11 @@ import java.util.UUID;
 
 public class FileExpander extends ADriverFileExpander {
 
-    public static final String PREFIX_TXT = ".txt";
-
     protected File inFile;
     protected File outFile;
 
     public FileExpander(File sourceFile) throws IOException {
         super();
-
-        if (!sourceFile.exists()) {
-            throw new IOException("фаил отсуцтвует " + sourceFile.getPath());
-        }
-        else if (!sourceFile.canRead()) {
-            throw new SecurityException("фаил защище от чтения: " + sourceFile.getAbsolutePath());
-        }
 
         this.inFile = sourceFile;
         this.outFile = createExpanderFile(sourceFile);
@@ -41,12 +32,12 @@ public class FileExpander extends ADriverFileExpander {
 
     public final File createExpanderFile(File compressedFil) throws SecurityException, IOException {
         StringBuilder nameFile = new StringBuilder(compressedFil.getName());
-        // txt
+        // устанавливаем текстовое расширение - FileCompressor.PREFIX_TXT
         int indexPrefix = nameFile.lastIndexOf(FileCompressor.PREFIX_BIN);
         if (indexPrefix != -1) {
             nameFile.delete(indexPrefix, nameFile.length());
         }
-        nameFile.append(PREFIX_TXT);
+        nameFile.append(FileCompressor.PREFIX_TXT);
         // UUID
         int index = nameFile.indexOf(".");
         if (index == -1) {

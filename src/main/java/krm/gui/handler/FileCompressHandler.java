@@ -9,21 +9,21 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
-public class CompressFileHandler extends AFileHandler implements ActionListener {
+public class FileCompressHandler extends AFileHandler implements ActionListener {
 
-    private JTextArea textArea1;
+    private JTextArea textArea;
 
-    public CompressFileHandler(JTextField pathFileField) {
+    public FileCompressHandler(JTextField pathFileField) {
         super(pathFileField);
     }
 
-    public CompressFileHandler(JTextField pathFileField, JLabel messageLabel) {
+    public FileCompressHandler(JTextField pathFileField, JLabel messageLabel) {
        super(pathFileField, messageLabel);
     }
 
-    public CompressFileHandler(JTextField pathFileField, JLabel messageLabel, JTextArea textArea1) {
+    public FileCompressHandler(JTextField pathFileField, JLabel messageLabel, JTextArea textArea1) {
         this(pathFileField, messageLabel);
-        this.textArea1 = textArea1;
+        this.textArea = textArea1;
     }
 
     protected void toHandler(File inFile) throws IOException {
@@ -32,6 +32,6 @@ public class CompressFileHandler extends AFileHandler implements ActionListener 
         FileCompressor compressor = new FileCompressor(inFile, f);
         compressor.start();
 
-        textArea1.setText(f.toStringGravityLeafs());
+        textArea.setText(f.toStringGravityLeafs());
     }
 }

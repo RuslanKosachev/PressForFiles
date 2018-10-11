@@ -9,8 +9,8 @@ import java.util.Objects;
 
 public abstract class AFileHandler implements ActionListener {
 
-    JTextField pathFileField;
-    JLabel messageLabel;
+    private JTextField pathFileField;
+    private JLabel messageLabel = null;
 
     public AFileHandler(JTextField pathFileField) {
         this.pathFileField = pathFileField;
@@ -27,7 +27,7 @@ public abstract class AFileHandler implements ActionListener {
             File inFile = new File(pathFileField.getText());
 
             if (!(inFile.exists())) {
-                throw new IOException("не является файлом");
+                throw new IOException("неправильный путь");
             }
             if (!(inFile.canRead())) {
                 throw new IOException("нет доступа");

@@ -11,8 +11,8 @@ import java.util.List;
 import java.util.Objects;
 
 public final class FileDropHandler extends TransferHandler {
-    JTextComponent dropLabel;
-    JLabel messageLabel;
+    private JTextComponent dropLabel;
+    private JLabel messageLabel;
 
     public FileDropHandler(JTextComponent dropLabel) {
         super();

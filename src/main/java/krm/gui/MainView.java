@@ -1,14 +1,14 @@
 package krm.gui;
 
-import krm.gui.handler.CompressFileHandler;
-import krm.gui.handler.ExpanderFileHandler;
+import krm.gui.handler.FileCompressHandler;
+import krm.gui.handler.FileExpanderHandler;
 import krm.gui.handler.FileDropHandler;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 
-public class MainViewApp extends JFrame {
+public class MainView extends JFrame {
     private JPanel contentPanel;
     private JLabel warningLabel;
 
@@ -22,7 +22,7 @@ public class MainViewApp extends JFrame {
     private JScrollPane scrollPanel;
     private JTextArea textArea;
 
-    public MainViewApp() throws HeadlessException {
+    public MainView() throws HeadlessException {
         setContentPane(contentPanel);
         setTitle("press for files");
         setLocationRelativeTo(null);
@@ -33,12 +33,12 @@ public class MainViewApp extends JFrame {
         // drop file
         pathFileField.setTransferHandler(new FileDropHandler(pathFileField, warningLabel));
 
-        compressButton.addActionListener(new CompressFileHandler(pathFileField, warningLabel, textArea));
-        reestablishButton.addActionListener(new ExpanderFileHandler(pathFileField, warningLabel));
+        compressButton.addActionListener(new FileCompressHandler(pathFileField, warningLabel, textArea));
+        reestablishButton.addActionListener(new FileExpanderHandler(pathFileField, warningLabel));
     }
 
     public static void main(String[] args) {
-        MainViewApp viewApp = new MainViewApp();
+        MainView viewApp = new MainView();
     }
 
 
