@@ -14,14 +14,17 @@ public class FileCompressor extends ADriverFileCompressor {
     protected File outFile;
     private File sourceFile;
 
-    public FileCompressor(File sourceFile, FactoryHuffmanCode factoryHuffman) throws IOException {
+    public FileCompressor(File sourceFile, FactoryHuffmanCode factoryHuffman)
+            throws IOException, SecurityException {
         super(factoryHuffman);
 
         if (!sourceFile.exists()) {
-            throw new IOException("фаил отсуцтвует " + sourceFile.getPath());
+            throw new IOException("фаил отсуцтвует "
+                    + sourceFile.getPath());
         }
         else if (!sourceFile.canRead()) {
-            throw new SecurityException("фаил защище от чтения: " + sourceFile.getAbsolutePath());
+            throw new SecurityException("фаил защище от чтения: "
+                    + sourceFile.getAbsolutePath());
         }
 
         this.inFile = sourceFile;
@@ -40,10 +43,12 @@ public class FileCompressor extends ADriverFileCompressor {
         this.outFile = outFile;
     }
 
-    protected final File createCompressedFile(File sourceFile) throws  SecurityException, IOException {
+    protected final File createCompressedFile(File sourceFile)
+            throws IOException, SecurityException {
         this.sourceFile = sourceFile;
+
         StringBuilder nameFile = new StringBuilder(sourceFile.getName());
-        // бинарное расширение
+        // устанавливаем бинарное расширение
         int indexPrefix = nameFile.lastIndexOf(FileCompressor.PREFIX_TXT);
         if (indexPrefix != -1) {
             nameFile.delete(indexPrefix, nameFile.length());
@@ -55,10 +60,7 @@ public class FileCompressor extends ADriverFileCompressor {
         fullPath.append(nameFile);
 
         File compressedFile = new File(String.valueOf(fullPath));
-        if (compressedFile.exists()) {
-            compressedFile.delete();
-            compressedFile.createNewFile();
-        }
+        compressedFile.delete();
 
         return compressedFile;
     }

@@ -12,24 +12,28 @@ public abstract class ADriverFileExpander {
 
     protected IHuffmanTree rootNode;
 
-    protected Object readObject(File compressedFile) throws Exception {
+    protected IHuffmanTree readObject(File compressedFile)
+            throws IOException, ClassNotFoundException, NegativeArraySizeException {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r")) {
             // десериализуем rootNode
             int lengthArrObject = in.readInt();
             byte[] objectArr = new byte[lengthArrObject];
+
             in.seek(ADriverFileCompressor.LENGTH_SERIALIZABLE_IN_BYTE); // смещение 4 (INT)
+
             in.readFully(objectArr); //считаем байты объекта
             ByteArrayInputStream streamArrayByte = new ByteArrayInputStream(objectArr);
             ObjectInputStream streamObject = new ObjectInputStream(streamArrayByte);
-            IHuffmanTree rootNodeIn = (IHuffmanTree) streamObject.readObject();
-            return rootNodeIn;
+
+            return (IHuffmanTree) streamObject.readObject();
         } catch (ClassNotFoundException | IOException | NegativeArraySizeException e) {
             e.printStackTrace();
             throw e;
         }
     }
 
-    protected void expander(File compressedFile, File decompressedFile, IHuffmanTree root) throws IOException {
+    protected void expander(File compressedFile, File decompressedFile, IHuffmanTree root)
+            throws IOException {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r");
              BufferedWriter out = new BufferedWriter(
                      new OutputStreamWriter(
