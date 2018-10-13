@@ -10,13 +10,14 @@ import java.util.Objects;
 public abstract class AFileHandler implements ActionListener {
 
     private JTextField pathFileField;
-    private JLabel messageLabel = null;
+    private JTextField messageLabel = null;
+    private String message = "";
 
     public AFileHandler(JTextField pathFileField) {
         this.pathFileField = pathFileField;
     }
 
-    public AFileHandler(JTextField pathFileField, JLabel messageLabel) {
+    public AFileHandler(JTextField pathFileField, JTextField messageLabel) {
         this(pathFileField);
         this.messageLabel = messageLabel;
     }
@@ -35,14 +36,15 @@ public abstract class AFileHandler implements ActionListener {
 
             toHandler(inFile);
 
-            if (Objects.nonNull(messageLabel)) {
-                messageLabel.setText("выполненно");
-            }
+            this.message = "выполненно";
+
         } catch (Exception ex) {
-            if (Objects.nonNull(messageLabel)) {
-                messageLabel.setText("ошибка" + " - " + ex.getMessage() + " - " + ex.toString());
-            }
+            this.message = "ошибка" + " - " + ex.getMessage() + " - " + ex.toString();
             ex.printStackTrace();
+        } finally {
+            if (Objects.nonNull(messageLabel)) {
+                messageLabel.setText(this.message);
+            }
         }
     }
 

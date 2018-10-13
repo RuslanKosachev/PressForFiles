@@ -11,15 +11,17 @@ import java.util.List;
 import java.util.Objects;
 
 public final class FileDropHandler extends TransferHandler {
+
     private JTextComponent dropLabel;
-    private JLabel messageLabel;
+    private JTextField messageLabel;
+    private String message = "";
 
     public FileDropHandler(JTextComponent dropLabel) {
         super();
         this.dropLabel = dropLabel;
     }
 
-    public FileDropHandler(JTextComponent dropLabel, JLabel messageLabel) {
+    public FileDropHandler(JTextComponent dropLabel, JTextField messageLabel) {
         this(dropLabel);
         this.messageLabel = messageLabel;
     }
@@ -36,9 +38,6 @@ public final class FileDropHandler extends TransferHandler {
     @Override
     @SuppressWarnings("unchecked")
     public boolean importData(TransferSupport support) {
-        if (Objects.nonNull(messageLabel)) {
-            messageLabel.setText("");
-        }
 
         Transferable t = support.getTransferable();
 
@@ -55,10 +54,12 @@ public final class FileDropHandler extends TransferHandler {
                 }
             }
         } catch (UnsupportedFlavorException | IOException e) {
-            if (Objects.nonNull(messageLabel)) {
-                messageLabel.setText(e.getMessage());
-            }
+            this.message = e.getMessage();
             e.printStackTrace();
+        } finally {
+            if (Objects.nonNull(messageLabel)) {
+                messageLabel.setText(this.message);
+            }
         }
 
         return super.importData(support);

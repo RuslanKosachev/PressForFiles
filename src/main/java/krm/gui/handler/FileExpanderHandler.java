@@ -12,7 +12,7 @@ public class FileExpanderHandler extends AFileHandler implements ActionListener 
         super(pathFileField);
     }
 
-    public FileExpanderHandler(JTextField pathFileField, JLabel messageLabel) {
+    public FileExpanderHandler(JTextField pathFileField, JTextField messageLabel) {
        super(pathFileField, messageLabel);
     }
 

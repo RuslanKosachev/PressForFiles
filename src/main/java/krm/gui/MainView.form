@@ -14,39 +14,45 @@
       <focusCycleRoot value="false"/>
       <focusTraversalPolicyProvider value="false"/>
       <focusable value="true"/>
+      <foreground color="-12148993"/>
       <maximumSize width="500" height="500"/>
       <minimumSize width="400" height="108"/>
       <name value="press for files"/>
       <opaque value="true"/>
       <preferredSize width="405" height="415"/>
+      <visible value="true"/>
     </properties>
     <border type="none">
       <font/>
       <size top="0" left="0" bottom="0" right="0"/>
     </border>
     <children>
-      <component id="fe561" class="javax.swing.JLabel" binding="warningLabel">
+      <component id="ec084" class="javax.swing.JTextField" binding="warningField">
         <constraints/>
         <properties>
           <alignmentX value="0.0"/>
           <alignmentY value="0.0"/>
-          <autoscrolls value="false"/>
           <background color="-4213966"/>
-          <debugGraphicsOptions value="1"/>
-          <doubleBuffered value="true"/>
+          <caretColor color="-12828863"/>
+          <caretPosition value="0"/>
+          <disabledTextColor color="-4213966"/>
+          <doubleBuffered value="false"/>
+          <dragEnabled value="false"/>
+          <editable value="false"/>
           <enabled value="true"/>
-          <focusCycleRoot value="false"/>
+          <focusCycleRoot value="true"/>
+          <focusTraversalPolicyProvider value="true"/>
           <foreground color="-1828583"/>
           <horizontalAlignment value="0"/>
-          <horizontalTextPosition value="4"/>
-          <inheritsPopupMenu value="true"/>
-          <labelFor value=""/>
-          <maximumSize width="400" height="20"/>
-          <minimumSize width="400" height="5"/>
+          <minimumSize width="0" height="20"/>
           <opaque value="true"/>
-          <preferredSize width="400" height="20"/>
-          <requestFocusEnabled value="true"/>
+          <preferredSize width="400" height="25"/>
+          <scrollOffset value="0"/>
+          <selectedTextColor color="-4505338"/>
+          <selectionColor color="-12288769"/>
           <text value="передайте файл в поле ввода"/>
+          <verifyInputWhenFocusTarget value="true"/>
+          <visible value="true"/>
         </properties>
       </component>
       <grid id="f8d3c" binding="pathPanel" layout-manager="GridBagLayout">

@@ -17,11 +17,11 @@ public class FileCompressHandler extends AFileHandler implements ActionListener 
         super(pathFileField);
     }
 
-    public FileCompressHandler(JTextField pathFileField, JLabel messageLabel) {
+    public FileCompressHandler(JTextField pathFileField, JTextField messageLabel) {
        super(pathFileField, messageLabel);
     }
 
-    public FileCompressHandler(JTextField pathFileField, JLabel messageLabel, JTextArea textArea1) {
+    public FileCompressHandler(JTextField pathFileField, JTextField messageLabel, JTextArea textArea1) {
         this(pathFileField, messageLabel);
         this.textArea = textArea1;
     }

@@ -10,10 +10,11 @@ import java.awt.*;
 
 public class MainView extends JFrame {
     private JPanel contentPanel;
-    private JLabel warningLabel;
 
-    private JPanel pathPanel;
+    private JTextField warningField;
+
     private JTextField pathFileField;
+    private JPanel pathPanel;
 
     private JPanel compressPanel;
     private JButton compressButton;
@@ -30,11 +31,15 @@ public class MainView extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
 
-        // drop file
-        pathFileField.setTransferHandler(new FileDropHandler(pathFileField, warningLabel));
+        initHandlers();
+    }
 
-        compressButton.addActionListener(new FileCompressHandler(pathFileField, warningLabel, textArea));
-        reestablishButton.addActionListener(new FileExpanderHandler(pathFileField, warningLabel));
+    public void initHandlers() {
+        // drop file
+        pathFileField.setTransferHandler(new FileDropHandler(pathFileField, warningField));
+
+        compressButton.addActionListener(new FileCompressHandler(pathFileField, warningField, textArea));
+        reestablishButton.addActionListener(new FileExpanderHandler(pathFileField, warningField));
     }
 
     public static void main(String[] args) {
@@ -68,31 +73,38 @@ public class MainView extends JFrame {
         contentPanel.setFocusCycleRoot(false);
         contentPanel.setFocusTraversalPolicyProvider(false);
         contentPanel.setFocusable(true);
+        contentPanel.setForeground(new Color(-12148993));
         contentPanel.setMaximumSize(new Dimension(500, 500));
         contentPanel.setMinimumSize(new Dimension(400, 108));
         contentPanel.setName("press for files");
         contentPanel.setOpaque(true);
         contentPanel.setPreferredSize(new Dimension(405, 415));
-        warningLabel = new JLabel();
-        warningLabel.setAlignmentX(0.0f);
-        warningLabel.setAlignmentY(0.0f);
-        warningLabel.setAutoscrolls(false);
-        warningLabel.setBackground(new Color(-4213966));
-        warningLabel.setDebugGraphicsOptions(1);
-        warningLabel.setDoubleBuffered(true);
-        warningLabel.setEnabled(true);
-        warningLabel.setFocusCycleRoot(false);
-        warningLabel.setForeground(new Color(-1828583));
-        warningLabel.setHorizontalAlignment(0);
-        warningLabel.setHorizontalTextPosition(4);
-        warningLabel.setInheritsPopupMenu(true);
-        warningLabel.setMaximumSize(new Dimension(400, 20));
-        warningLabel.setMinimumSize(new Dimension(400, 5));
-        warningLabel.setOpaque(true);
-        warningLabel.setPreferredSize(new Dimension(400, 20));
-        warningLabel.setRequestFocusEnabled(true);
-        warningLabel.setText("передайте файл в поле ввода");
-        contentPanel.add(warningLabel);
+        contentPanel.setVisible(true);
+        warningField = new JTextField();
+        warningField.setAlignmentX(0.0f);
+        warningField.setAlignmentY(0.0f);
+        warningField.setBackground(new Color(-4213966));
+        warningField.setCaretColor(new Color(-12828863));
+        warningField.setCaretPosition(0);
+        warningField.setDisabledTextColor(new Color(-4213966));
+        warningField.setDoubleBuffered(false);
+        warningField.setDragEnabled(false);
+        warningField.setEditable(false);
+        warningField.setEnabled(true);
+        warningField.setFocusCycleRoot(true);
+        warningField.setFocusTraversalPolicyProvider(true);
+        warningField.setForeground(new Color(-1828583));
+        warningField.setHorizontalAlignment(0);
+        warningField.setMinimumSize(new Dimension(0, 20));
+        warningField.setOpaque(true);
+        warningField.setPreferredSize(new Dimension(400, 25));
+        warningField.setScrollOffset(0);
+        warningField.setSelectedTextColor(new Color(-4505338));
+        warningField.setSelectionColor(new Color(-12288769));
+        warningField.setText("передайте файл в поле ввода");
+        warningField.setVerifyInputWhenFocusTarget(true);
+        warningField.setVisible(true);
+        contentPanel.add(warningField);
         pathPanel = new JPanel();
         pathPanel.setLayout(new GridBagLayout());
         pathPanel.setAlignmentX(0.0f);
