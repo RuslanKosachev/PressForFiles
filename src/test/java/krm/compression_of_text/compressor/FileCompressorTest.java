@@ -1,8 +1,7 @@
 package krm.compression_of_text.compressor;
 
 
-import krm.compression_of_text.huffman_algorithm.CodeGravityComparator;
-import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
+import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
 
 import java.io.File;
 import org.junit.Test;
@@ -22,7 +21,7 @@ public class FileCompressorTest {
                 "testCompressorActual.krm.huffman.bin");
 
         FileCompressor compressor = new FileCompressor(inFile,
-            new FactoryHuffmanCode(CodeGravityComparator.getInstance()));
+            new FactoryHuffmanCode(TreeNodeComparator.getInstance()));
 
         outActualFile.delete();
         compressor.setOutFile(outActualFile);

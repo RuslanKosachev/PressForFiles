@@ -8,31 +8,31 @@ public class FactoryHuffmanTreeTest {
 
     @Test
     public void addWordGravityTest() {
-        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
+        BuilderHuffmanTree f = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
 
         String testDataIn = "eeerereuuuuiii";
         char[] testStream = testDataIn.toCharArray();
         for (char c : testStream) {
-            f.addWordGravity(c);
+            f.addSignification(c);
         }
         //{r=2, e=5, u=2, i=2}
-        assertEquals(2, (int)f.gravityLeafs.get('r'));
-        assertEquals(5, (int)f.gravityLeafs.get('e'));
-        assertEquals(4, (int)f.gravityLeafs.get('u'));
-        assertEquals(3, (int)f.gravityLeafs.get('i'));
+        assertEquals(2, (int)f.significationFrequency.get('r'));
+        assertEquals(5, (int)f.significationFrequency.get('e'));
+        assertEquals(4, (int)f.significationFrequency.get('u'));
+        assertEquals(3, (int)f.significationFrequency.get('i'));
     }
 
     @Test
     public void getRootNodeTest() {
-        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
+        BuilderHuffmanTree f = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
 
         String testDataIn = "ieeeeerruuoooooooooooooooo";
         char[] testStream = testDataIn.toCharArray();
         for (char c : testStream) {
-            f.addWordGravity(c);
+            f.addSignification(c);
         }
 
-        assertEquals(26, f.getRootNode().getGravity());
-        System.out.println(f.toStringGravityLeafs());
+        assertEquals(26, f.getRootNode().getFrequencies());
+        System.out.println(f.toStringSignificationFrequency());
     }
 }

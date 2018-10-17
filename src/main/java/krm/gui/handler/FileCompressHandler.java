@@ -1,8 +1,6 @@
 package krm.gui.handler;
 
-import krm.compression_of_text.compressor.FileCompressor;
-import krm.compression_of_text.huffman_algorithm.CodeGravityComparator;
-import krm.compression_of_text.huffman_algorithm.FactoryHuffmanCode;
+import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
@@ -27,11 +25,11 @@ public class FileCompressHandler extends AFileHandler implements ActionListener 
     }
 
     protected void toHandler(File inFile) throws IOException {
-        FactoryHuffmanCode f = new FactoryHuffmanCode(CodeGravityComparator.getInstance());
+        FactoryHuffmanCode f = new FactoryHuffmanCode(TreeNodeComparator.getInstance());
 
         FileCompressor compressor = new FileCompressor(inFile, f);
         compressor.start();
 
-        textArea.setText(f.toStringGravityLeafs());
+        textArea.setText(f.toStringSignificationFrequency());
     }
 }

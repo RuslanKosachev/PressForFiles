@@ -7,27 +7,27 @@ public class HuffmanTreeLeafTest {
 
     @Test
     public void getGravityTest() {
-        HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('a', 23);
-        assertEquals(23, l1.getGravity());
+        CharacterHuffmanTree l1 = new CharacterHuffmanTree('a', 23);
+        assertEquals(23, l1.getFrequencies());
     }
 
     @Test
     public void getSignificationTest() {
-        HuffmanTreeLeaf l1 = new HuffmanTreeLeaf('t', 1);
+        CharacterHuffmanTree l1 = new CharacterHuffmanTree('t', 1);
         assertEquals((Character) 't', l1.getSignification());
     }
 
     @Test
     public void equalsTest() {
-        FactoryHuffmanTree f = new FactoryHuffmanTree(CodeGravityComparator.getInstance());
+        BuilderHuffmanTree f = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
 
         String testDataIn = "eeerereuuii";
         char[] testStream = testDataIn.toCharArray();
         for (char c : testStream) {
-            f.addWordGravity(c);
+            f.addSignification(c);
         }
         f.initCollectionOfLeaf();
-        HuffmanTreeLeaf leaf = new HuffmanTreeLeaf('u', 4652);
+        CharacterHuffmanTree leaf = new CharacterHuffmanTree('u', 4652);
         assertEquals(true, f.nodes.contains(leaf));
     }
 }

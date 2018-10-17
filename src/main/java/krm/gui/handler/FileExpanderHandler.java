@@ -1,7 +1,5 @@
 package krm.gui.handler;
 
-import krm.compression_of_text.compressor.FileExpander;
-
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.File;
