@@ -2,6 +2,7 @@ package krm.compression_of_text.huffman_algorithm;
 
 import java.io.Serializable;
 import java.util.Comparator;
+import java.util.Objects;
 
 public class HuffmanTree<T> implements Serializable{
 
@@ -45,5 +46,25 @@ public class HuffmanTree<T> implements Serializable{
 
     public T getSignification() {
         return this.signification;
+    }
+
+    @Override
+    public String toString(){
+        String out = "";
+        if (Objects.nonNull(signification)) {
+            out = signification.toString() + "=";
+        }
+        return out += frequencies;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        HuffmanTree<T> that = (HuffmanTree<T>) o;
+
+        if (frequencies != that.frequencies) return false;
+        return signification.equals(that.signification);
     }
 }

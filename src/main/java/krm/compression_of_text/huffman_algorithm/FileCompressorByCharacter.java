@@ -3,7 +3,7 @@ package krm.compression_of_text.huffman_algorithm;
 import java.io.*;
 import java.util.*;
 
-public abstract class FileCompressorByCharacter {
+public class FileCompressorByCharacter {
 
     public static final String PREFIX_BIN = ".krm.huffman.bin";
     public static final String PREFIX_TXT = ".txt";
@@ -19,7 +19,7 @@ public abstract class FileCompressorByCharacter {
 
     private BuilderHuffmanTree<Character> factoryHuffman;
 
-    FileCompressorByCharacter(File inFile, BuilderHuffmanTree<Character> factoryHuffman)
+    public FileCompressorByCharacter(File inFile, BuilderHuffmanTree<Character> factoryHuffman)
             throws IOException, SecurityException {
         this.inFile = inFile;
         this.outFile = createCompressedFile(inFile);

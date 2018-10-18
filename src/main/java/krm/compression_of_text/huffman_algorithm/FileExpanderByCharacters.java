@@ -4,7 +4,7 @@ import java.io.*;
 import java.util.Objects;
 import java.util.UUID;
 
-public abstract class FileExpanderByCharacters {
+public class FileExpanderByCharacters {
 
     // размер в битах буфера для чтения закодированного текста
     public static final int UNIT_BUFFER_SIZE_IN_BITS = 8;

@@ -15,7 +15,7 @@ public class FileExpanderHandler extends AFileHandler implements ActionListener 
     }
 
     protected void toHandler(File inFile) throws Exception {
-        FileExpander expander = new FileExpander(inFile);
-        expander.start();
+        /*FileExpander expander = new FileExpander(inFile);
+        expander.start();*/
     }
 }

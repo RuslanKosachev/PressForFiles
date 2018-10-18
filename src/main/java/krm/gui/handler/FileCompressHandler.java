@@ -25,11 +25,11 @@ public class FileCompressHandler extends AFileHandler implements ActionListener 
     }
 
     protected void toHandler(File inFile) throws IOException {
-        FactoryHuffmanCode f = new FactoryHuffmanCode(TreeNodeComparator.getInstance());
+        /*FactoryHuffmanCode f = new FactoryHuffmanCode(TreeNodeComparator.getInstance());
 
         FileCompressor compressor = new FileCompressor(inFile, f);
         compressor.start();
 
-        textArea.setText(f.toStringSignificationFrequency());
+        textArea.setText(f.toStringSignificationFrequency());*/
     }
 }

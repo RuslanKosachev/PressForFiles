@@ -4,13 +4,16 @@ import java.util.*;
 
 public class BuilderHuffmanTree<T> {
 
-    protected Map<T, Integer> significationFrequency = new HashMap();
-    protected ArrayList<HuffmanTree<T>> nodes = new ArrayList<>();
-    protected Comparator<HuffmanTree> comparatorCodeGravity;
-    protected HuffmanTree<T> rootNode = null;
-    protected Map<T, List<Boolean>> codes = new TreeMap<>();
+    private Comparator<HuffmanTree> comparatorCodeGravity;
 
-    BuilderHuffmanTree(Comparator<HuffmanTree> comparatorCodeGravity) {
+    private Map<T, Integer> significationFrequency = new HashMap();
+    private ArrayList<HuffmanTree<T>> nodes = new ArrayList<>();
+    private HuffmanTree<T> rootNode = null;
+
+    private Map<T, List<Boolean>> codes = new TreeMap<>();
+    private LinkedList<Boolean> code = new LinkedList<>();
+
+    public BuilderHuffmanTree(Comparator<HuffmanTree> comparatorCodeGravity) {
         this.comparatorCodeGravity = comparatorCodeGravity;
     }
 
@@ -27,10 +30,10 @@ public class BuilderHuffmanTree<T> {
     }
 
     public HuffmanTree<T> getRootNode() {
-        if (Objects.isNull(this.rootNode)) {
+        if (Objects.isNull(rootNode)) {
             resetHuffmanTree();
         }
-        return this.rootNode;
+        return rootNode;
     }
 
     public void resetHuffmanTree() {
@@ -42,11 +45,11 @@ public class BuilderHuffmanTree<T> {
         if (codes.isEmpty()) {
             resetCodes();
         }
-        return this.codes;
+        return codes;
     }
 
     public void resetCodes() {
-        this.initCodes(getRootNode());
+        initCodes(getRootNode());
     }
 
     protected void initCollectionOfLeaf() {
@@ -74,9 +77,8 @@ public class BuilderHuffmanTree<T> {
                         : nodes.get(0);
     }
 
-    protected void initCodes(HuffmanTree<T> rootNode) {
-        List<Boolean> code = new LinkedList<>();
 
+    protected void initCodes(HuffmanTree<T> rootNode) {
         if (Objects.nonNull(rootNode.getLeftNode())) {
             code.add(false);
             initCodes(rootNode.getLeftNode());
@@ -86,10 +88,10 @@ public class BuilderHuffmanTree<T> {
             initCodes(rootNode.getRightNode());
         }
         if (Objects.isNull(rootNode.getLeftNode()) && Objects.isNull(rootNode.getRightNode())) {
-            this.codes.put(rootNode.getSignification(), new LinkedList<Boolean>(code));
+            codes.put(rootNode.getSignification(), (List<Boolean>) code.clone());
         }
         if (!code.isEmpty()) {
-            code.remove(code.size() - 1);
+            code.removeLast();
         }
     }
 
@@ -112,18 +114,17 @@ public class BuilderHuffmanTree<T> {
         return String.valueOf(result);
     }
 
-    public static int toPrintRootNode(HuffmanTree node, int shift) {
+    public static void toPrintRootNode(HuffmanTree node, int shift) {
         if (node != null) {
-            System.out.print(toPrintRootNode( node.getLeftNode(), shift + 10));
+            toPrintRootNode( node.getLeftNode(), shift + 4);
 
             for (int i = 0; i < shift; i++) {
                 System.out.print(" ");
             }
-            System.out.print(node.toString() + '\n');
+            System.out.println(node.toString());
 
-            System.out.print(toPrintRootNode( node.getRightNode(), shift + 10));
+           toPrintRootNode( node.getRightNode(), shift + 4);
         }
-        return 1;
     }
 
     public void printSignificationFrequency() {
@@ -135,6 +136,6 @@ public class BuilderHuffmanTree<T> {
     }
 
     public void printCodes() {
-        System.out.println(codes.toString());
+        System.out.println(codes);
     }
 }
