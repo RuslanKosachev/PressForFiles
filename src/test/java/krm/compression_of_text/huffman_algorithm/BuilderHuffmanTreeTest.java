@@ -12,15 +12,15 @@ public class BuilderHuffmanTreeTest {
 
     @Test
     public void addSignificationTest() {
-        BuilderHuffmanTree f = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
+        BuilderHuffmanTree builder = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
 
         String testDataIn = "eeerereuuuuiii";
         char[] testStream = testDataIn.toCharArray();
         for (char c : testStream) {
-            f.addSignification(c);
+            builder.addSignification(c);
         }
         //{r=2, e=5, u=2, i=2}
-        Map<Character, Integer> map = f.getSignificationFrequency();
+        Map<Character, Integer> map = builder.getSignificationFrequency();
         assertEquals(2, (int)map.get('r'));
         assertEquals(5, (int)map.get('e'));
         assertEquals(4, (int)map.get('u'));

@@ -4,15 +4,15 @@ import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class HuffmanTree<T> implements Serializable{
+public class HuffmanTree<T> implements Serializable {
 
     private static final long serialVersionUID = 8683452581122892188L;
 
-    protected T signification;
-    protected transient int frequencies;
+    private T signification;
+    private transient int frequencies;
 
-    protected HuffmanTree leftNode;
-    protected HuffmanTree rightNode;
+    private HuffmanTree leftNode;
+    private HuffmanTree rightNode;
 
     public HuffmanTree(int gravity, T signification) {
         this.frequencies = gravity;

@@ -7,9 +7,9 @@ public class HuffmanTreeTest {
 
     @Test
     public void HuffmanTreeTest1() {
-        HuffmanTree l1 = new HuffmanTree<Character>(1, 'a');
-        HuffmanTree l2 = new HuffmanTree<Character>(3, 'a');
-        HuffmanTree l3 = new HuffmanTree<Character>(5, 'a');
+        HuffmanTree<Character> l1 = new HuffmanTree<>(1, 'a');
+        HuffmanTree<Character> l2 = new HuffmanTree<>(3, 'a');
+        HuffmanTree<Character> l3 = new HuffmanTree<>(5, 'a');
 
         assertEquals(1, l1.getFrequencies());
         assertEquals(3, l2.getFrequencies());
@@ -18,14 +18,14 @@ public class HuffmanTreeTest {
 
     @Test
     public void HuffmanTreeTest2() {
-        HuffmanTree l1 = new HuffmanTree<Character>(1, 'a');
-        HuffmanTree l2 = new HuffmanTree<Character>(3, 't');
-        HuffmanTree l3 = new HuffmanTree<Character>(5, 'u');
-        HuffmanTree l4 = new HuffmanTree<Character>(8, 'l');
+        HuffmanTree<Character> l1 = new HuffmanTree<>(1, 'a');
+        HuffmanTree<Character> l2 = new HuffmanTree<>(3, 't');
+        HuffmanTree<Character> l3 = new HuffmanTree<>(5, 'u');
+        HuffmanTree<Character> l4 = new HuffmanTree<>(8, 'l');
 
-        HuffmanTree n1 = new HuffmanTree<Character>(l1, l2, TreeNodeComparator.getInstance());//1 + 3
-        HuffmanTree n2 = new HuffmanTree<Character>(l3, n1, TreeNodeComparator.getInstance());//4 + 5
-        HuffmanTree n3 = new HuffmanTree<Character>(n2, l4, TreeNodeComparator.getInstance());//8 + 9
+        HuffmanTree<Character> n1 = new HuffmanTree<>(l1, l2, TreeNodeComparator.getInstance());//1 + 3
+        HuffmanTree<Character> n2 = new HuffmanTree<>(l3, n1, TreeNodeComparator.getInstance());//4 + 5
+        HuffmanTree<Character> n3 = new HuffmanTree<>(n2, l4, TreeNodeComparator.getInstance());//8 + 9
 
         assertEquals(17, n3.getFrequencies());
         assertEquals(8, n3.getLeftNode().getFrequencies());

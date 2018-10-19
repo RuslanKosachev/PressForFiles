@@ -8,7 +8,7 @@ public class BuilderHuffmanTree<T> {
 
     private Map<T, Integer> significationFrequency = new HashMap();
     private ArrayList<HuffmanTree<T>> nodes = new ArrayList<>();
-    private HuffmanTree<T> rootNode = null;
+    private HuffmanTree<T> rootNode;
 
     private Map<T, List<Boolean>> codes = new TreeMap<>();
     private LinkedList<Boolean> code = new LinkedList<>();
@@ -52,7 +52,7 @@ public class BuilderHuffmanTree<T> {
         initCodes(getRootNode());
     }
 
-    protected void initCollectionOfLeaf() {
+    private void initCollectionOfLeaf() {
         nodes.clear();
 
         for (Map.Entry item : significationFrequency.entrySet()) {
@@ -63,22 +63,21 @@ public class BuilderHuffmanTree<T> {
         }
     }
 
-    protected void generateHuffmanTree() {
+    private void generateHuffmanTree() {
         HuffmanTree newNode;
         while (nodes.size() > 1) {
-            nodes.sort(this.comparatorCodeGravity);
+            nodes.sort(comparatorCodeGravity);
             // новый узел из двух начальных элементов с удалением использованных элемементов
-            newNode = new HuffmanTree<T>(nodes.get(0), nodes.get(1), comparatorCodeGravity);
+            newNode = new HuffmanTree<>(nodes.get(0), nodes.get(1), comparatorCodeGravity);
             nodes.set(1, newNode);
             nodes.remove(0);
         }
-        this.rootNode = ((nodes.isEmpty() && (nodes.get(0) == null)))
-                        ? null
-                        : nodes.get(0);
+        rootNode = ((nodes.isEmpty() && (Objects.isNull(nodes.get(0)))))
+                ? null
+                : nodes.get(0);
     }
 
-
-    protected void initCodes(HuffmanTree<T> rootNode) {
+    private void initCodes(HuffmanTree<T> rootNode) {
         if (Objects.nonNull(rootNode.getLeftNode())) {
             code.add(false);
             initCodes(rootNode.getLeftNode());

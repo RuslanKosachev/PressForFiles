@@ -39,7 +39,7 @@ public class FileExpanderByCharacters {
         }
     }
 
-    protected boolean readObject(File compressedFile)
+    private boolean readObject(File compressedFile)
             throws IOException, ClassNotFoundException, NegativeArraySizeException {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r")) {
             // десериализуем rootNode
@@ -61,7 +61,7 @@ public class FileExpanderByCharacters {
         }
     }
 
-    protected void expander(File compressedFile, File decompressedFile, HuffmanTree root)
+    private void expander(File compressedFile, File decompressedFile, HuffmanTree root)
             throws IOException {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r");
              Writer out = new BufferedWriter(

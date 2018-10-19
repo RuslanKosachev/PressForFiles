@@ -1,5 +1,7 @@
 package krm.gui.handler;
 
+import krm.compression_of_text.huffman_algorithm.FileExpanderByCharacters;
+
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -15,7 +17,7 @@ public class FileExpanderHandler extends AFileHandler implements ActionListener 
     }
 
     protected void toHandler(File inFile) throws Exception {
-        /*FileExpander expander = new FileExpander(inFile);
-        expander.start();*/
+        FileExpanderByCharacters expander = new FileExpanderByCharacters(inFile);
+        expander.perform();
     }
 }

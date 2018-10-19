@@ -1,5 +1,7 @@
 package krm.gui.handler;
 
+import krm.compression_of_text.huffman_algorithm.BuilderHuffmanTree;
+import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
 import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
 
 import javax.swing.*;
@@ -19,17 +21,16 @@ public class FileCompressHandler extends AFileHandler implements ActionListener 
        super(pathFileField, messageLabel);
     }
 
-    public FileCompressHandler(JTextField pathFileField, JTextField messageLabel, JTextArea textArea1) {
+    public FileCompressHandler(JTextField pathFileField, JTextField messageLabel, JTextArea textArea) {
         this(pathFileField, messageLabel);
-        this.textArea = textArea1;
+        this.textArea = textArea;
     }
 
     protected void toHandler(File inFile) throws IOException {
-        /*FactoryHuffmanCode f = new FactoryHuffmanCode(TreeNodeComparator.getInstance());
+        BuilderHuffmanTree<Character> builder = new BuilderHuffmanTree<>(TreeNodeComparator.getInstance());
+        FileCompressorByCharacter compressor = new FileCompressorByCharacter(inFile, builder);
+        compressor.perform();
 
-        FileCompressor compressor = new FileCompressor(inFile, f);
-        compressor.start();
-
-        textArea.setText(f.toStringSignificationFrequency());*/
+        textArea.setText(builder.toStringSignificationFrequency());
     }
 }
