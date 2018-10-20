@@ -5,8 +5,14 @@ import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
 import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
 
 import java.io.File;
+
+import krm.exception.CompressionException;
+import krm.exception.ErrorCodeCompression;
 import org.junit.Test;
 import junitx.framework.*;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 //import org.junit.Assert.*;
 
 public class FileCompressorByCharacterTest {
@@ -30,5 +36,19 @@ public class FileCompressorByCharacterTest {
         compressor.perform();
 
         FileAssert.assertEquals(outExpectedFile, outActualFile);
+    }
+
+    @Test
+    @SuppressWarnings("unused")
+    public void ErrorCodeCompressionTest() {
+        try {
+            File inFile = new File("tesT.txt");
+            FileCompressorByCharacter compressor =
+                    new FileCompressorByCharacter(inFile,
+                            new BuilderHuffmanTree<Character>(TreeNodeComparator.getInstance()));
+            fail();
+        } catch (CompressionException ex) {
+            assertEquals(ErrorCodeCompression.PATH_ERROR, ex.getErrorCode());
+        }
     }
 }

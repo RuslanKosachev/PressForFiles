@@ -3,11 +3,12 @@ package krm.gui.handler;
 import krm.compression_of_text.huffman_algorithm.BuilderHuffmanTree;
 import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
 import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
+import krm.exception.CompressionException;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
+import java.util.Objects;
 
 public class FileCompressHandler extends AFileHandler implements ActionListener {
 
@@ -26,11 +27,13 @@ public class FileCompressHandler extends AFileHandler implements ActionListener 
         this.textArea = textArea;
     }
 
-    protected void toHandler(File inFile) throws IOException {
+    protected void toHandler(File inFile) throws CompressionException {
         BuilderHuffmanTree<Character> builder = new BuilderHuffmanTree<>(TreeNodeComparator.getInstance());
         FileCompressorByCharacter compressor = new FileCompressorByCharacter(inFile, builder);
         compressor.perform();
 
-        textArea.setText(builder.toStringSignificationFrequency());
+        if (Objects.nonNull(textArea)) {
+            textArea.setText(builder.toStringSignificationFrequency());
+        }
     }
 }

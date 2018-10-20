@@ -1,5 +1,8 @@
 package krm.compression_of_text.huffman_algorithm;
 
+import krm.exception.CompressionException;
+import krm.exception.ErrorCodeCompression;
+
 import java.io.*;
 import java.util.Objects;
 import java.util.UUID;
@@ -7,16 +10,26 @@ import java.util.UUID;
 public class FileExpanderByCharacters {
 
     // размер в битах буфера для чтения закодированного текста
-    public static final int UNIT_BUFFER_SIZE_IN_BITS = 8;
+    private static final int UNIT_BUFFER_SIZE_IN_BITS = 8;
 
     private File inFile;
     private File outFile;
-
     private HuffmanTree rootNode;
 
-    public FileExpanderByCharacters(File sourceFile) throws IOException {
-        this.inFile = sourceFile;
-        this.outFile = createExpanderFile(sourceFile);
+    public FileExpanderByCharacters(File inFile)
+            throws CompressionException {
+        try {
+            if (!(inFile.exists())) {
+                throw new CompressionException(ErrorCodeCompression.PATH_ERROR);
+            }
+            if (!(inFile.canRead())) {
+                throw new CompressionException(ErrorCodeCompression.NO_ACCESS);
+            }
+            this.inFile = inFile;
+            this.outFile = createExpanderFile(inFile);
+        } catch (CompressionException e) {
+            throw e;
+        }
     }
 
     public File getInFile() {
@@ -31,7 +44,7 @@ public class FileExpanderByCharacters {
         return outFile;
     }
 
-    public void perform() throws Exception {
+    public void perform() throws CompressionException {
         if (Objects.nonNull(outFile)) {
             if (readObject(inFile)) {
                 expander(inFile, outFile, rootNode);
@@ -40,7 +53,7 @@ public class FileExpanderByCharacters {
     }
 
     private boolean readObject(File compressedFile)
-            throws IOException, ClassNotFoundException, NegativeArraySizeException {
+            throws CompressionException {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r")) {
             // десериализуем rootNode
             int lengthArrObject = in.readInt();
@@ -55,14 +68,15 @@ public class FileExpanderByCharacters {
             rootNode = (HuffmanTree<Character>) streamObject.readObject();
 
             return true;
-        } catch (ClassNotFoundException | IOException | NegativeArraySizeException e) {
-            e.printStackTrace();
-            throw e;
+        } catch (ClassNotFoundException | NegativeArraySizeException e) {
+            throw new CompressionException(ErrorCodeCompression.DESERIALIZATION_ERROR, e);
+        } catch (IOException e) {
+            throw new CompressionException(ErrorCodeCompression.EXPANDER_ERROR, e);
         }
     }
 
     private void expander(File compressedFile, File decompressedFile, HuffmanTree root)
-            throws IOException {
+            throws CompressionException {
         try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r");
              Writer out = new BufferedWriter(
                      new OutputStreamWriter(
@@ -107,12 +121,11 @@ public class FileExpanderByCharacters {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
-            throw e;
+            throw new CompressionException(ErrorCodeCompression.EXPANDER_ERROR, e);
         }
     }
 
-    public final File createExpanderFile(File compressedFil) throws SecurityException, IOException {
+    private File createExpanderFile(File compressedFil) {
         StringBuilder nameFile = new StringBuilder(compressedFil.getName());
         // устанавливаем текстовое расширение - FileCompressor.PREFIX_TXT
         int indexPrefix = nameFile.lastIndexOf(FileCompressorByCharacter.PREFIX_BIN);
@@ -132,9 +145,6 @@ public class FileExpanderByCharacters {
         fullPath.append(nameFile);
 
         File expanderFile = new File(String.valueOf(fullPath));
-        if (expanderFile.exists() && !expanderFile.canWrite()) {
-            throw new SecurityException("фаил защищен от записи: " + fullPath);
-        }
 
         return expanderFile;
     }

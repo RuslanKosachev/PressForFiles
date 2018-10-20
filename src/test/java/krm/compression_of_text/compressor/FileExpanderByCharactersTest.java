@@ -1,10 +1,18 @@
 package krm.compression_of_text.compressor;
 
 import junitx.framework.FileAssert;
+import krm.compression_of_text.huffman_algorithm.BuilderHuffmanTree;
+import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
 import krm.compression_of_text.huffman_algorithm.FileExpanderByCharacters;
 
+import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
+import krm.exception.CompressionException;
+import krm.exception.ErrorCodeCompression;
 import org.junit.Test;
 import java.io.File;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 //import org.junit.Assert.*;
 
 public class FileExpanderByCharactersTest {
@@ -25,5 +33,17 @@ public class FileExpanderByCharactersTest {
         expander.perform();
 
         FileAssert.assertEquals(outExpectedFile, outActualFile);
+    }
+
+    @Test
+    @SuppressWarnings("unused")
+    public void ErrorCodeCompressionTest() {
+        try {
+            File inFile = new File("tesT.txt");
+            FileExpanderByCharacters expander = new FileExpanderByCharacters(inFile);
+            fail();
+        } catch (CompressionException ex) {
+            assertEquals(ErrorCodeCompression.PATH_ERROR, ex.getErrorCode());
+        }
     }
 }

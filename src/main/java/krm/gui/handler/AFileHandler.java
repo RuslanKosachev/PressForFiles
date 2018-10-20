@@ -1,5 +1,7 @@
 package krm.gui.handler;
 
+import krm.exception.CompressionException;
+
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -27,26 +29,26 @@ public abstract class AFileHandler implements ActionListener {
         try {
             File inFile = new File(pathFileField.getText());
 
-            if (!(inFile.exists())) {
+            /*if (!(inFile.exists())) {
                 throw new IOException("неправильный путь");
             }
             if (!(inFile.canRead())) {
                 throw new IOException("нет доступа");
-            }
+            }*/
 
             toHandler(inFile);
 
             this.message = "выполненно";
 
-        } catch (Exception ex) {
-            this.message = "ошибка" + " - " + ex.getMessage() + " - " + ex.toString();
-            ex.printStackTrace();
+        } catch (CompressionException ex) {
+            this.message = "ошибка" + " - " + ex.getErrorCode().getErrorMessage();
+            ex.getCause().printStackTrace();
         } finally {
             if (Objects.nonNull(messageLabel)) {
-                messageLabel.setText(this.message);
+                messageLabel.setText(message);
             }
         }
     }
 
-    protected abstract void toHandler(File inFile) throws Exception;
+    protected abstract void toHandler(File inFile) throws CompressionException;
 }
