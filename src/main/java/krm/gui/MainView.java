@@ -9,23 +9,24 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 
 public class MainView extends JFrame {
+
     private JPanel contentPanel;
-
     private JTextField warningField;
-
     private JTextField pathFileField;
     private JPanel pathPanel;
-
     private JPanel compressPanel;
     private JButton compressButton;
     private JButton reestablishButton;
-
     private JScrollPane scrollPanel;
     private JTextArea textArea;
 
     public MainView() throws HeadlessException {
         setContentPane(contentPanel);
-        setTitle("press for files");
+
+        setTitle("Press For Files");
+        ImageIcon img = new ImageIcon("src\\main\\java\\krm\\gui\\earth.png");
+        setIconImage(img.getImage());
+        
         setLocationRelativeTo(null);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
