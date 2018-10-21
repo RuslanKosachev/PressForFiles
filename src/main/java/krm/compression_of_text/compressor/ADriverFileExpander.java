@@ -34,20 +34,21 @@ public abstract class ADriverFileExpander {
 
     protected void expander(File compressedFile, File decompressedFile, IHuffmanTree root)
             throws IOException {
-        try (RandomAccessFile in = new RandomAccessFile(compressedFile, "r");
+        try (RandomAccessFile inRand = new RandomAccessFile(compressedFile, "r");
+             BufferedInputStream inBuffRand = new BufferedInputStream(new FileInputStream(inRand.getFD()));
              BufferedWriter out = new BufferedWriter(
                      new OutputStreamWriter(
                              new FileOutputStream(decompressedFile), ADriverFileCompressor.CHARSET_NAME))) {
             //переходим на первый байт закодированного текста
-            in.seek(in.readInt() + ADriverFileCompressor.LENGTH_SERIALIZABLE_IN_BYTE);
+            inRand.seek(inRand.readInt() + ADriverFileCompressor.LENGTH_SERIALIZABLE_IN_BYTE);
 
-            IHuffmanTree rootIn = root;
+            IHuffmanTree rootItem = root;
             boolean bit;
-            int currentBit = 0;
+            int currentBit;
             int countBits = UNIT_BUFFER_SIZE_IN_BITS;
             byte[] buffer = new byte[3];
 
-            int n = in.read(buffer, 0, 3);
+            int n = inBuffRand.read(buffer, 0, 3);
             int a = n;
             while (n != -1) {
                 // в цикле по полученным битам выполняем поиск символа по дереву
@@ -56,13 +57,13 @@ public abstract class ADriverFileExpander {
                             ? true
                             : false;
                     if (bit) {
-                        rootIn = (IHuffmanTree) rootIn.getRightSink();
+                        rootItem = (IHuffmanTree) rootItem.getRightSink();
                     } else {
-                        rootIn = (IHuffmanTree) rootIn.getLeftSink();
+                        rootItem = (IHuffmanTree) rootItem.getLeftSink();
                     }
-                    if (Objects.isNull(rootIn.getRightSink()) && Objects.isNull(rootIn.getLeftSink())) {
-                        out.write(rootIn.getSignification());
-                        rootIn = root;
+                    if (Objects.isNull(rootItem.getRightSink()) && Objects.isNull(rootItem.getLeftSink())) {
+                        out.write(rootItem.getSignification());
+                        rootItem = root;
                     }
                 }
                 n = a;
@@ -70,7 +71,7 @@ public abstract class ADriverFileExpander {
                 /* сдвиг байтов в лево и заполнение последней ячейке новым байтом, если не окончен поток */
                 buffer[0] = buffer[1];
                 buffer[1] = buffer[2];
-                a = in.read(buffer, 2, 1);
+                a = inBuffRand.read(buffer, 2, 1);
                 /* если конец потока - последнийбайт(bufferArr[1]) это значение количества значащих бит
                    кодированного текста в предпоследнем байте потока(bufferArr[0]) */
                 if (a == -1) {
