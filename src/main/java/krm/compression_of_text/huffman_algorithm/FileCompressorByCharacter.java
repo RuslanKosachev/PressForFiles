@@ -63,9 +63,8 @@ public class FileCompressorByCharacter {
             throws CompressionException {
         try (BufferedReader in = new BufferedReader(
                 new InputStreamReader(new FileInputStream(sourceFile), CHARSET_NAME))) {
-            int symbol;
-            while ((symbol = in.read()) != -1) {
-                factoryHuffman.addSignification((char)symbol);
+            while (in.ready()) {
+                factoryHuffman.addSignification((char)in.read());
             }
         } catch (IOException e) {
             throw new CompressionException(ErrorCodeCompression.COMPRESSION_ERROR, e);
@@ -79,10 +78,10 @@ public class FileCompressorByCharacter {
             ByteArrayOutputStream byteArrayOutput = new ByteArrayOutputStream();
             ObjectOutputStream outputObject = new ObjectOutputStream(byteArrayOutput);
             outputObject.writeObject(rootNode);
+            byte[] arrayByteObject = byteArrayOutput.toByteArray();
 
-            byte[] outArrayByteObject = byteArrayOutput.toByteArray();
-            out.writeInt(outArrayByteObject.length); // размер объекта в байтах
-            out.write(outArrayByteObject); // запись со смещением 4 (LENGTH_SERIALIZABLE_IN_BYTE = int)
+            out.writeInt(arrayByteObject.length); // размер объекта в байтах
+            out.write(arrayByteObject); // запись со смещением 4 (LENGTH_SERIALIZABLE_IN_BYTE = int)
         } catch (IOException e) {
             throw new CompressionException(ErrorCodeCompression.COMPRESSION_ERROR, e);
         }
@@ -92,32 +91,32 @@ public class FileCompressorByCharacter {
             throws CompressionException {
         try (BufferedReader in = new BufferedReader(
                 new InputStreamReader(new FileInputStream(sourceFile), CHARSET_NAME));
-            RandomAccessFile out = new RandomAccessFile(compressedFile, "rw")) {
-
-            out.seek(out.readInt() + FileCompressorByCharacter.LENGTH_SERIALIZABLE_IN_BYTE);
+            RandomAccessFile outRand = new RandomAccessFile(compressedFile, "rw");
+            BufferedOutputStream outBuffRand = new BufferedOutputStream(new FileOutputStream(outRand.getFD()))) {
+            // учитываем уже записанныей обьект
+            outRand.seek(outRand.readInt() + FileCompressorByCharacter.LENGTH_SERIALIZABLE_IN_BYTE);
 
             List<Boolean> code;
-            int key;
             byte buffer = 0;
             byte bit;
-            int currentBit = 0;
-            while ((key = in.read()) != -1) {
-                code = codes.get((char) key);
+            byte currentBit = 0;
+            while (in.ready()) {
+                code = codes.get((char) in.read());
                 for (boolean item : code) {
                     bit = (byte) ((item) ? 1 : 0);
                     buffer = (byte) (buffer | (bit << (UNIT_BUFFER_SIZE_IN_BITS - 1 - currentBit)));
                     currentBit++;
                     if (currentBit == UNIT_BUFFER_SIZE_IN_BITS) {
-                        out.writeByte(buffer);
+                        outBuffRand.write(buffer);
                         currentBit = 0;
                         buffer = 0;
                     }
                 }
             }
             // дозапишем байт с последними битами кодированного текста
-            out.writeByte(buffer);
+            outBuffRand.write(buffer);
             // запишем количетво не пустых бит в последнем байте(buffer) закодированного текста
-            out.writeByte(currentBit);
+            outBuffRand.write(currentBit);
         } catch (IOException e) {
             throw new CompressionException(ErrorCodeCompression.COMPRESSION_ERROR, e);
         }
