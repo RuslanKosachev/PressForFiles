@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class FileExpanderHandler extends AFileHandler implements ActionListener {
+public class FileExpanderHandler extends FileHandlerAbstract implements ActionListener {
 
     public FileExpanderHandler(JTextField pathFileField) {
         super(pathFileField);

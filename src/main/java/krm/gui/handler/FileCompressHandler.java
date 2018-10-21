@@ -10,7 +10,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.Objects;
 
-public class FileCompressHandler extends AFileHandler implements ActionListener {
+public class FileCompressHandler extends FileHandlerAbstract implements ActionListener {
 
     private JTextArea textArea;
 
