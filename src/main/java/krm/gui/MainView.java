@@ -1,8 +1,8 @@
 package krm.gui;
 
 import krm.gui.handler.FileCompressHandler;
-import krm.gui.handler.FileExpanderHandler;
 import krm.gui.handler.FileDropHandler;
+import krm.gui.handler.FileExpanderHandler;
 
 import javax.swing.*;
 import javax.swing.border.TitledBorder;
@@ -24,10 +24,11 @@ public class MainView extends JFrame {
         setContentPane(contentPanel);
 
         setTitle("Press For Files");
-        ImageIcon img = new ImageIcon("src\\main\\java\\krm\\gui\\earth.png");
+        ImageIcon img = new ImageIcon("src\\main\\java\\krm\\gui\\broccoli.png");
         setIconImage(img.getImage());
-        
+
         setLocationRelativeTo(null);
+        setResizable(false);
         pack();
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -119,7 +120,7 @@ public class MainView extends JFrame {
         pathPanel.setRequestFocusEnabled(true);
         pathPanel.setToolTipText("");
         contentPanel.add(pathPanel);
-        pathPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0), "path", TitledBorder.LEFT, TitledBorder.TOP, new Font(pathPanel.getFont().getName(), pathPanel.getFont().getStyle(), pathPanel.getFont().getSize()), new Color(-1)));
+        pathPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0), "path", TitledBorder.LEFT, TitledBorder.TOP, this.$$$getFont$$$(null, -1, -1, pathPanel.getFont()), new Color(-1)));
         pathFileField = new JTextField();
         pathFileField.setAlignmentX(0.0f);
         pathFileField.setAlignmentY(0.0f);
@@ -158,7 +159,7 @@ public class MainView extends JFrame {
         compressPanel.setRequestFocusEnabled(false);
         compressPanel.putClientProperty("html.disable", Boolean.TRUE);
         contentPanel.add(compressPanel);
-        compressPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font(compressPanel.getFont().getName(), compressPanel.getFont().getStyle(), compressPanel.getFont().getSize())));
+        compressPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0), null, TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, this.$$$getFont$$$(null, -1, -1, compressPanel.getFont())));
         compressButton = new JButton();
         compressButton.setAlignmentY(0.0f);
         compressButton.setBorderPainted(true);
@@ -213,6 +214,25 @@ public class MainView extends JFrame {
         textArea.setEnabled(true);
         textArea.setText("");
         scrollPanel.setViewportView(textArea);
+    }
+
+    /**
+     * @noinspection ALL
+     */
+    private Font $$$getFont$$$(String fontName, int style, int size, Font currentFont) {
+        if (currentFont == null) return null;
+        String resultName;
+        if (fontName == null) {
+            resultName = currentFont.getName();
+        } else {
+            Font testFont = new Font(fontName, Font.PLAIN, 10);
+            if (testFont.canDisplay('a') && testFont.canDisplay('1')) {
+                resultName = fontName;
+            } else {
+                resultName = currentFont.getName();
+            }
+        }
+        return new Font(resultName, style >= 0 ? style : currentFont.getStyle(), size >= 0 ? size : currentFont.getSize());
     }
 
     /**
