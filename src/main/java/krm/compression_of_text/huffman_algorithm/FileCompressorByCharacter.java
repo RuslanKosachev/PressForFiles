@@ -54,7 +54,7 @@ public class FileCompressorByCharacter {
             throws CompressionException {
         if (Objects.nonNull(outFile)) {
             initBuilderHuffman(inFile);
-            writeObject(factoryHuffman.getRootNode(), outFile);
+            writeObject(factoryHuffman.getSignificationFrequency(), outFile);
             compressor(inFile, outFile, factoryHuffman.getCodes());
         }
     }
@@ -71,13 +71,13 @@ public class FileCompressorByCharacter {
         }
     }
 
-    protected void writeObject(Object rootNode, File compressedFile)
+    protected void writeObject(Object obj, File compressedFile)
             throws CompressionException {
         try (RandomAccessFile out = new RandomAccessFile(compressedFile, "rw")) {
             // сериализуем rootNode в массив байт
             ByteArrayOutputStream byteArrayOutput = new ByteArrayOutputStream();
             ObjectOutputStream outputObject = new ObjectOutputStream(byteArrayOutput);
-            outputObject.writeObject(rootNode);
+            outputObject.writeObject(obj);
             byte[] arrayByteObject = byteArrayOutput.toByteArray();
 
             out.writeInt(arrayByteObject.length); // размер объекта в байтах

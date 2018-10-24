@@ -4,6 +4,7 @@ import krm.exception.CompressionException;
 import krm.exception.ErrorCodeCompression;
 
 import java.io.*;
+import java.util.Map;
 import java.util.Objects;
 import java.util.UUID;
 
@@ -14,9 +15,10 @@ public class FileExpanderByCharacters {
 
     private File inFile;
     private File outFile;
-    private HuffmanTree rootNode;
+    //private HuffmanTree rootNode;
+    private BuilderHuffmanTree<Character> builderHuffmanTree;
 
-    public FileExpanderByCharacters(File inFile)
+    public FileExpanderByCharacters(File inFile, BuilderHuffmanTree<Character> builderHuffmanTree)
             throws CompressionException {
         try {
             if (!(inFile.exists())) {
@@ -27,6 +29,7 @@ public class FileExpanderByCharacters {
             }
             this.inFile = inFile;
             this.outFile = createExpanderFile(inFile);
+            this.builderHuffmanTree = builderHuffmanTree;
         } catch (CompressionException e) {
             throw e;
         }
@@ -47,7 +50,7 @@ public class FileExpanderByCharacters {
     public void perform() throws CompressionException {
         if (Objects.nonNull(outFile)) {
             if (readObject(inFile)) {
-                expander(inFile, outFile, rootNode);
+                expander(inFile, outFile, builderHuffmanTree.getRootNode());
             }
         }
     }
@@ -65,7 +68,7 @@ public class FileExpanderByCharacters {
             ByteArrayInputStream streamArrayByte = new ByteArrayInputStream(objectArr);
             ObjectInputStream streamObject = new ObjectInputStream(streamArrayByte);
 
-            rootNode = (HuffmanTree<Character>) streamObject.readObject();
+            builderHuffmanTree.setSignificationFrequency((Map<Character, Integer>) streamObject.readObject());
 
             return true;
         } catch (ClassNotFoundException | NegativeArraySizeException e) {

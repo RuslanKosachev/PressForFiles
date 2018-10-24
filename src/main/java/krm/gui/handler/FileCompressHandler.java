@@ -28,12 +28,12 @@ public class FileCompressHandler extends FileHandlerAbstract implements ActionLi
     }
 
     protected void toHandler(File inFile) throws CompressionException {
-        BuilderHuffmanTree<Character> builder = new BuilderHuffmanTree<>(TreeNodeComparator.getInstance());
-        FileCompressorByCharacter compressor = new FileCompressorByCharacter(inFile, builder);
+        BuilderHuffmanTree<Character> builderTree = new BuilderHuffmanTree<>(TreeNodeComparator.getInstance());
+        FileCompressorByCharacter compressor = new FileCompressorByCharacter(inFile, builderTree);
         compressor.perform();
 
         if (Objects.nonNull(textArea)) {
-            textArea.setText(builder.toStringSignificationFrequency());
+            textArea.setText(builderTree.toStringSignificationFrequency());
         }
     }
 }

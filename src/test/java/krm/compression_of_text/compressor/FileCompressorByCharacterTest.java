@@ -5,15 +5,12 @@ import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
 import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
 
 import java.io.File;
-
 import krm.exception.CompressionException;
 import krm.exception.ErrorCodeCompression;
 import org.junit.Test;
 import junitx.framework.*;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-//import org.junit.Assert.*;
 
 public class FileCompressorByCharacterTest {
 

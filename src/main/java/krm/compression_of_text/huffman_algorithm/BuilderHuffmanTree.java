@@ -17,16 +17,20 @@ public class BuilderHuffmanTree<T> {
         this.comparatorCodeGravity = comparatorCodeGravity;
     }
 
+    public void setSignificationFrequency(Map<T, Integer> significationFrequency) {
+        this.significationFrequency = significationFrequency;
+    }
+
     public Map<T, Integer> getSignificationFrequency() {
         return significationFrequency;
     }
 
     public void addSignification(T signification) {
-        int gravity = 1;
+        int frequency = 1;
         if (significationFrequency.containsKey(signification)) {
-            gravity += significationFrequency.get(signification);
+            frequency += significationFrequency.get(signification);
         }
-        significationFrequency.put(signification, gravity);
+        significationFrequency.put(signification, frequency);
     }
 
     public HuffmanTree<T> getRootNode() {
