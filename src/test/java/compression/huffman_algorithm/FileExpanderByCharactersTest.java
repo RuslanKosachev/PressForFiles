@@ -14,7 +14,7 @@ public class FileExpanderByCharactersTest {
    @Test
     public void performTest() throws Exception {
         File inFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
-                "testExpanderIn.krm.huffman.bin");
+                "testExpanderIn.huffman.bin");
 
         File outExpectedFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
                 "testExpanderExpected.txt");
