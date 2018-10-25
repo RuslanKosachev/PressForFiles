@@ -17,9 +17,9 @@ public class FileCompressorByCharacterTest {
                 "testCompressorIn.txt");
 
         File outExpectedFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
-                "testCompressorExpected.krm.huffman.bin");
+                "testCompressorExpected.huffman.bin");
         File outActualFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
-                "testCompressorActual.krm.huffman.bin");
+                "testCompressorActual.huffman.bin");
 
         FileCompressorByCharacter compressor =
                 new FileCompressorByCharacter(inFile,
