@@ -1,4 +1,4 @@
-package krm.exception;
+package compression.exception;
 
 public enum ErrorCodeCompression {
 

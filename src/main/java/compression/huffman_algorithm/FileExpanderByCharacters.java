@@ -1,7 +1,7 @@
-package krm.compression_of_text.huffman_algorithm;
+package compression.huffman_algorithm;
 
-import krm.exception.CompressionException;
-import krm.exception.ErrorCodeCompression;
+import compression.exception.CompressionException;
+import compression.exception.ErrorCodeCompression;
 
 import java.io.*;
 import java.util.Map;

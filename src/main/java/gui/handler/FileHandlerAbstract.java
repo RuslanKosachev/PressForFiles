@@ -1,6 +1,6 @@
-package krm.gui.handler;
+package gui.handler;
 
-import krm.exception.CompressionException;
+import compression.exception.CompressionException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

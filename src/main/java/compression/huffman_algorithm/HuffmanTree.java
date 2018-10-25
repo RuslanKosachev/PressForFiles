@@ -1,13 +1,12 @@
-package krm.compression_of_text.huffman_algorithm;
+package compression.huffman_algorithm;
 
-import java.io.Serializable;
 import java.util.Comparator;
 import java.util.Objects;
 
-public class HuffmanTree<T> implements Serializable {
+public class HuffmanTree<T> {
 
     private T signification;
-    private transient int frequencies;
+    private int frequencies;
 
     private HuffmanTree leftNode;
     private HuffmanTree rightNode;

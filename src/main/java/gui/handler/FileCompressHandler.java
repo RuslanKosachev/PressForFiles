@@ -1,9 +1,9 @@
-package krm.gui.handler;
+package gui.handler;
 
-import krm.compression_of_text.huffman_algorithm.BuilderHuffmanTree;
-import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
-import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
-import krm.exception.CompressionException;
+import compression.huffman_algorithm.BuilderHuffmanTree;
+import compression.huffman_algorithm.FileCompressorByCharacter;
+import compression.huffman_algorithm.TreeNodeComparator;
+import compression.exception.CompressionException;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

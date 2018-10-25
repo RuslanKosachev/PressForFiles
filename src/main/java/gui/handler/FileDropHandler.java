@@ -1,4 +1,4 @@
-package krm.gui.handler;
+package gui.handler;
 
 import javax.swing.*;
 import javax.swing.text.JTextComponent;

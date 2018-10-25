@@ -1,12 +1,9 @@
-package krm.compression_of_text.compressor;
+package compression.huffman_algorithm;
+
+import compression.exception.CompressionException;
+import compression.exception.ErrorCodeCompression;
 
 import junitx.framework.FileAssert;
-import krm.compression_of_text.huffman_algorithm.BuilderHuffmanTree;
-import krm.compression_of_text.huffman_algorithm.FileExpanderByCharacters;
-
-import krm.compression_of_text.huffman_algorithm.TreeNodeComparator;
-import krm.exception.CompressionException;
-import krm.exception.ErrorCodeCompression;
 import org.junit.Test;
 import java.io.File;
 import static org.junit.Assert.assertEquals;
@@ -16,12 +13,12 @@ public class FileExpanderByCharactersTest {
 
    @Test
     public void performTest() throws Exception {
-        File inFile = new File("src\\test\\java\\krm\\compression_of_text\\compressor\\test_files\\" +
+        File inFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
                 "testExpanderIn.krm.huffman.bin");
 
-        File outExpectedFile = new File("src\\test\\java\\krm\\compression_of_text\\compressor\\test_files\\" +
+        File outExpectedFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
                 "testExpanderExpected.txt");
-        File outActualFile = new File("src\\test\\java\\krm\\compression_of_text\\compressor\\test_files\\" +
+        File outActualFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
                 "testExpanderActual.txt");
 
         FileExpanderByCharacters expander = new FileExpanderByCharacters(inFile,
@@ -37,7 +34,7 @@ public class FileExpanderByCharactersTest {
     @SuppressWarnings("unused")
     public void ErrorCodeCompressionTest() {
         try {
-            File inFile = new File("tesT.txt");
+            File inFile = new File("doesNotExist.txt");
             FileExpanderByCharacters expander = new FileExpanderByCharacters(inFile,
                     new BuilderHuffmanTree<Character>(TreeNodeComparator.getInstance()));
             fail();

@@ -1,7 +1,7 @@
-package krm.compression_of_text.huffman_algorithm;
+package compression.huffman_algorithm;
 
-import krm.exception.CompressionException;
-import krm.exception.ErrorCodeCompression;
+import compression.exception.CompressionException;
+import compression.exception.ErrorCodeCompression;
 
 import java.io.*;
 import java.util.*;
@@ -13,7 +13,7 @@ public class FileCompressorByCharacter {
     // размер в байтах для хранения величины сериализованного дерева Хаффмана (расположение в начале файла)
     public static final byte LENGTH_SERIALIZABLE_IN_BYTE = 4;
 
-    public static final String PREFIX_BIN = ".krm.huffman.bin";
+    public static final String PREFIX_BIN = ".huffman.bin";
     public static final String PREFIX_TXT = ".txt";
     public static final String CHARSET_NAME = "UTF-8";
 

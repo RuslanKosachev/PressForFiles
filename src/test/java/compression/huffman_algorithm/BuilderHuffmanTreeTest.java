@@ -1,8 +1,7 @@
-package krm.compression_of_text.huffman_algorithm;
+package compression.huffman_algorithm;
 
 import org.junit.Test;
 import java.util.*;
-
 import static org.junit.Assert.assertEquals;
 
 public class BuilderHuffmanTreeTest {

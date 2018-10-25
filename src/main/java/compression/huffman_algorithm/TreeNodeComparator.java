@@ -1,9 +1,8 @@
-package krm.compression_of_text.huffman_algorithm;
+package compression.huffman_algorithm;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
-public class TreeNodeComparator implements Comparator<HuffmanTree>, Serializable {
+public class TreeNodeComparator implements Comparator<HuffmanTree> {
 
     public static TreeNodeComparator getInstance() {
         return Holder.INSTANCE;
