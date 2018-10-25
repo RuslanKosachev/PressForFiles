@@ -15,7 +15,6 @@ public class FileExpanderByCharacters {
 
     private File inFile;
     private File outFile;
-    //private HuffmanTree rootNode;
     private BuilderHuffmanTree<Character> builderHuffmanTree;
 
     public FileExpanderByCharacters(File inFile, BuilderHuffmanTree<Character> builderHuffmanTree)

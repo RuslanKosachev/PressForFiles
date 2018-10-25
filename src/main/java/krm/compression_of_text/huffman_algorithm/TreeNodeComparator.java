@@ -5,8 +5,6 @@ import java.util.Comparator;
 
 public class TreeNodeComparator implements Comparator<HuffmanTree>, Serializable {
 
-    private static final long serialVersionUID = 8683452581122892188L;
-
     public static TreeNodeComparator getInstance() {
         return Holder.INSTANCE;
     }

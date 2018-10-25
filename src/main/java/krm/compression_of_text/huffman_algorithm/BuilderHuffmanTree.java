@@ -4,6 +4,8 @@ import java.util.*;
 
 public class BuilderHuffmanTree<T> {
 
+    private static final int INCREMENT = 1;
+
     private Comparator<HuffmanTree> comparatorCodeGravity;
 
     private Map<T, Integer> significationFrequency = new HashMap();
@@ -26,7 +28,7 @@ public class BuilderHuffmanTree<T> {
     }
 
     public void addSignification(T signification) {
-        int frequency = 1;
+        int frequency = INCREMENT;
         if (significationFrequency.containsKey(signification)) {
             frequency += significationFrequency.get(signification);
         }

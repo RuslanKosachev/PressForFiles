@@ -6,8 +6,6 @@ import java.util.Objects;
 
 public class HuffmanTree<T> implements Serializable {
 
-    private static final long serialVersionUID = 8683452581122892188L;
-
     private T signification;
     private transient int frequencies;
 
@@ -50,11 +48,10 @@ public class HuffmanTree<T> implements Serializable {
 
     @Override
     public String toString(){
-        String out = "";
         if (Objects.nonNull(signification)) {
-            out = signification.toString() + "=";
+            return  signification.toString() + "=" + frequencies;
         }
-        return out += frequencies;
+        return String.valueOf(frequencies);
     }
 
     @Override
