@@ -24,7 +24,7 @@ public class MainView extends JFrame {
         setContentPane(contentPanel);
 
         setTitle("Press For Files");
-        ImageIcon img = new ImageIcon("src\\main\\java\\krm\\gui\\broccoli.png");
+        ImageIcon img = new ImageIcon("src\\main\\java\\krm\\gui\\tree.png");
         setIconImage(img.getImage());
 
         setLocationRelativeTo(null);
