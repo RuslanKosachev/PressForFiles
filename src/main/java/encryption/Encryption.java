@@ -1,4 +1,4 @@
-package krm.encryption;
+package encryption;
 
 import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
 import krm.exception.CompressionException;

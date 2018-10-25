@@ -1,4 +1,4 @@
-package krm.encryption;
+package encryption;
 
 public class Util {
 
