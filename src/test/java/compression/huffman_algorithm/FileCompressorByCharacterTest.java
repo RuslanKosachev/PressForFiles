@@ -23,7 +23,7 @@ public class FileCompressorByCharacterTest {
 
         FileCompressorByCharacter compressor =
                 new FileCompressorByCharacter(inFile,
-                        new BuilderHuffmanTree<Character>(TreeNodeComparator.getInstance()));
+                        new BuilderHuffmanTree<Character>(NodeComparator.getInstance()));
 
         outActualFile.delete();
         compressor.setOutFile(outActualFile);
@@ -39,7 +39,7 @@ public class FileCompressorByCharacterTest {
             File inFile = new File("doesNotExist.txt");
             FileCompressorByCharacter compressor =
                     new FileCompressorByCharacter(inFile,
-                            new BuilderHuffmanTree<Character>(TreeNodeComparator.getInstance()));
+                            new BuilderHuffmanTree<Character>(NodeComparator.getInstance()));
             fail();
         } catch (CompressionException ex) {
             assertEquals(ErrorCodeCompression.PATH_ERROR, ex.getErrorCode());

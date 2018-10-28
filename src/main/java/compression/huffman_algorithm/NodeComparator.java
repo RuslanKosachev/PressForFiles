@@ -2,14 +2,21 @@ package compression.huffman_algorithm;
 
 import java.util.Comparator;
 
-public class TreeNodeComparator implements Comparator<HuffmanTree> {
+public class NodeComparator implements Comparator<HuffmanTree> {
 
-    public static TreeNodeComparator getInstance() {
-        return Holder.INSTANCE;
-    }
+    private static volatile NodeComparator instance;
 
-    private static class Holder {
-        private static final TreeNodeComparator INSTANCE = new TreeNodeComparator();
+    private NodeComparator() {}
+
+    public static NodeComparator getInstance() {
+        if (instance == null) {
+            synchronized (NodeComparator.class) {
+                if (instance == null) {
+                    instance = new NodeComparator();
+                }
+            }
+        }
+        return instance;
     }
 
     public int compare(HuffmanTree o1, HuffmanTree o2) {

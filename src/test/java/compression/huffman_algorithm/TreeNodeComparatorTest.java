@@ -24,7 +24,7 @@ public class TreeNodeComparatorTest {
         expectedList.add(new HuffmanTree<Character>(10, 'r'));
         expectedList.add(new HuffmanTree<Character>(84, 'r'));
 
-        Collections.sort(actualList, TreeNodeComparator.getInstance());
+        Collections.sort(actualList, NodeComparator.getInstance());
 
         assertEquals(expectedList, actualList);
     }

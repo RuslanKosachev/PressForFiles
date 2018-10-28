@@ -22,7 +22,7 @@ public class FileExpanderByCharactersTest {
                 "testExpanderActual.txt");
 
         FileExpanderByCharacters expander = new FileExpanderByCharacters(inFile,
-                new BuilderHuffmanTree<Character>(TreeNodeComparator.getInstance()));
+                new BuilderHuffmanTree<Character>(NodeComparator.getInstance()));
         outActualFile.delete();
         expander.setOutFile(outActualFile);
         expander.perform();
@@ -36,7 +36,7 @@ public class FileExpanderByCharactersTest {
         try {
             File inFile = new File("doesNotExist.txt");
             FileExpanderByCharacters expander = new FileExpanderByCharacters(inFile,
-                    new BuilderHuffmanTree<Character>(TreeNodeComparator.getInstance()));
+                    new BuilderHuffmanTree<Character>(NodeComparator.getInstance()));
             fail();
         } catch (CompressionException ex) {
             assertEquals(ErrorCodeCompression.PATH_ERROR, ex.getErrorCode());

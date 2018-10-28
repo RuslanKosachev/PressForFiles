@@ -2,7 +2,7 @@ package gui.handler;
 
 import compression.huffman_algorithm.BuilderHuffmanTree;
 import compression.huffman_algorithm.FileCompressorByCharacter;
-import compression.huffman_algorithm.TreeNodeComparator;
+import compression.huffman_algorithm.NodeComparator;
 import compression.exception.CompressionException;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class FileCompressHandler extends FileHandlerAbstract implements ActionLi
     }
 
     protected void toHandler(File inFile) throws CompressionException {
-        BuilderHuffmanTree<Character> builderTree = new BuilderHuffmanTree<>(TreeNodeComparator.getInstance());
+        BuilderHuffmanTree<Character> builderTree = new BuilderHuffmanTree<>(NodeComparator.getInstance());
         FileCompressorByCharacter compressor = new FileCompressorByCharacter(inFile, builderTree);
         compressor.perform();
 

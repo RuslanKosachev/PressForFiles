@@ -23,9 +23,9 @@ public class HuffmanTreeTest {
         HuffmanTree<Character> l3 = new HuffmanTree<>(5, 'u');
         HuffmanTree<Character> l4 = new HuffmanTree<>(8, 'l');
 
-        HuffmanTree<Character> n1 = new HuffmanTree<>(l1, l2, TreeNodeComparator.getInstance());//1 + 3
-        HuffmanTree<Character> n2 = new HuffmanTree<>(l3, n1, TreeNodeComparator.getInstance());//4 + 5
-        HuffmanTree<Character> n3 = new HuffmanTree<>(n2, l4, TreeNodeComparator.getInstance());//8 + 9
+        HuffmanTree<Character> n1 = new HuffmanTree<>(l1, l2, NodeComparator.getInstance());//1 + 3
+        HuffmanTree<Character> n2 = new HuffmanTree<>(l3, n1, NodeComparator.getInstance());//4 + 5
+        HuffmanTree<Character> n3 = new HuffmanTree<>(n2, l4, NodeComparator.getInstance());//8 + 9
 
         assertEquals(17, n3.getFrequencies());
         assertEquals(8, n3.getLeftNode().getFrequencies());

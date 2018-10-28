@@ -11,7 +11,7 @@ public class BuilderHuffmanTreeTest {
 
     @Test
     public void addSignificationTest() {
-        BuilderHuffmanTree builder = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
+        BuilderHuffmanTree builder = new BuilderHuffmanTree(NodeComparator.getInstance());
 
         String testDataIn = "eeerereuuuuiii";
         char[] testStream = testDataIn.toCharArray();
@@ -29,7 +29,7 @@ public class BuilderHuffmanTreeTest {
     @Test
     public void getRootNodeTest() {
         String expectedCodesStr = "u000i0010r0011e01o1";
-        BuilderHuffmanTree builder = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
+        BuilderHuffmanTree builder = new BuilderHuffmanTree(NodeComparator.getInstance());
 
         String testDataIn = "ieeeeerruuoooooooooooooooo";
         char[] testStream = testDataIn.toCharArray();
@@ -50,7 +50,7 @@ public class BuilderHuffmanTreeTest {
         expectedCodes.put('r', new LinkedList<Boolean>(Arrays.asList(false, false, true, true)));
         expectedCodes.put('u', new LinkedList<Boolean>(Arrays.asList(false, false, false)));
 
-        BuilderHuffmanTree builder = new BuilderHuffmanTree(TreeNodeComparator.getInstance());
+        BuilderHuffmanTree builder = new BuilderHuffmanTree(NodeComparator.getInstance());
 
         String testDataIn = "ieeeeerruuoooooooooooooooo";
         char[] testStream = testDataIn.toCharArray();
