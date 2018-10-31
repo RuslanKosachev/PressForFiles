@@ -50,7 +50,7 @@
           <scrollOffset value="0"/>
           <selectedTextColor color="-4505338"/>
           <selectionColor color="-12288769"/>
-          <text value="передайте файл в поле ввода"/>
+          <text value=""/>
           <verifyInputWhenFocusTarget value="true"/>
           <visible value="true"/>
         </properties>

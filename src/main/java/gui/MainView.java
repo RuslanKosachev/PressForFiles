@@ -23,9 +23,11 @@ public class MainView extends JFrame {
     public MainView() throws HeadlessException {
         setContentPane(contentPanel);
 
-        setTitle("Press For Files");
+        setTitle(TestBook.NAME);
         ImageIcon img = new ImageIcon("src\\main\\java\\gui\\tree.png");
         setIconImage(img.getImage());
+
+        warningField.setText(TestBook.ADVICE_FOR_WARNING_FILD);
 
         setLocationRelativeTo(null);
         setResizable(false);
@@ -98,7 +100,7 @@ public class MainView extends JFrame {
         warningField.setScrollOffset(0);
         warningField.setSelectedTextColor(new Color(-4505338));
         warningField.setSelectionColor(new Color(-12288769));
-        warningField.setText("передайте файл в поле ввода");
+        warningField.setText("");
         warningField.setVerifyInputWhenFocusTarget(true);
         warningField.setVisible(true);
         contentPanel.add(warningField);
