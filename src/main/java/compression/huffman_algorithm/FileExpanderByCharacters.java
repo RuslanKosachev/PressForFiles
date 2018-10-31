@@ -12,6 +12,7 @@ public class FileExpanderByCharacters {
 
     // размер в битах буфера для чтения закодированного текста
     private static final int UNIT_BUFFER_SIZE_IN_BITS = 8;
+    private static final int BUFFER_ARRAY_SIZE = 3;
 
     private File inFile;
     private File outFile;
@@ -91,11 +92,17 @@ public class FileExpanderByCharacters {
             boolean bit;
             int currentBit = 0;
             int countBits = UNIT_BUFFER_SIZE_IN_BITS;
-            byte[] buffer = new byte[3];
+            byte[] buffer = new byte[BUFFER_ARRAY_SIZE];
 
-            int n = inBuffRand.read(buffer, 0, 3);
-            int a = n;
-            while (n != -1) {
+            boolean goOut = false;
+            int nInitial = inBuffRand.read(buffer, 0, BUFFER_ARRAY_SIZE);
+            if (nInitial < BUFFER_ARRAY_SIZE) {
+                countBits = buffer[buffer.length - 2];
+                goOut = true;
+            }
+
+            int nInternal;
+            while (nInitial != -1) {
                 // в цикле по полученным битам выполняем поиск символа по дереву
                 for (currentBit = 0; currentBit < countBits; currentBit++) {
                     bit = ((buffer[0] & (1 << (UNIT_BUFFER_SIZE_IN_BITS - 1 - currentBit))) != 0)
@@ -111,15 +118,24 @@ public class FileExpanderByCharacters {
                         rootItem = root;
                     }
                 }
-                n = a;
-                /* сдвиг байтов в лево и заполнение последней ячейке новым байтом, если не окончен поток */
-                buffer[0] = buffer[1];
-                buffer[1] = buffer[2];
-                a = inBuffRand.read(buffer, 2, 1);
-                /* если конец потока - последнийбайт(bufferArr[1]) это значение количества значащих бит
-                   кодированного текста в предпоследнем байте потока(bufferArr[0]) */
-                if (a == -1) {
-                    countBits = buffer[1];
+
+                if (goOut) {
+                    break;
+                }
+
+                /* сдвиг байт в массиве в лево  */
+                for (int i = 0; i < buffer.length - 1; i++) {
+                    int next = i + 1;
+                    buffer[i] = buffer[next];
+                }
+                /* заполнение последней ячейки новым байтом, если не окончен поток */
+                nInternal = inBuffRand.read(buffer, buffer.length -1, 1);
+
+                /* если конец потока - последний байт(buffer[length - 1]) это значение количества значащих бит
+                   кодированного текста в предпоследнем байте потока(buffer[0]) */
+                if (nInternal < 1) {
+                    countBits = buffer[buffer.length - 2];
+                    goOut = true;
                 }
             }
         } catch (IOException e) {

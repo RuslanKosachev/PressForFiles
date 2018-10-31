@@ -19,7 +19,7 @@ public class FileCompressorByCharacter {
 
     private File inFile;
     private File outFile;
-    private BuilderHuffmanTree<Character> factoryHuffman;
+    private BuilderHuffmanTree<Character> builderHuffmanTree;
 
     public FileCompressorByCharacter(File inFile, BuilderHuffmanTree<Character> factoryHuffman)
             throws CompressionException {
@@ -32,7 +32,7 @@ public class FileCompressorByCharacter {
             }
             this.inFile = inFile;
             this.outFile = createCompressedFile(inFile);
-            this.factoryHuffman = factoryHuffman;
+            this.builderHuffmanTree = factoryHuffman;
         } catch (CompressionException e) {
             throw e;
         }
@@ -54,8 +54,8 @@ public class FileCompressorByCharacter {
             throws CompressionException {
         if (Objects.nonNull(outFile)) {
             initBuilderHuffman(inFile);
-            writeObject(factoryHuffman.getSignificationFrequency(), outFile);
-            compressor(inFile, outFile, factoryHuffman.getCodes());
+            writeObject(builderHuffmanTree.getSignificationFrequency(), outFile);
+            compressor(inFile, outFile, builderHuffmanTree.getCodes());
         }
     }
 
@@ -64,7 +64,7 @@ public class FileCompressorByCharacter {
         try (BufferedReader in = new BufferedReader(
                 new InputStreamReader(new FileInputStream(sourceFile), CHARSET_NAME))) {
             while (in.ready()) {
-                factoryHuffman.addSignification((char)in.read());
+                builderHuffmanTree.addSignification((char)in.read());
             }
         } catch (IOException e) {
             throw new CompressionException(ErrorCodeCompression.COMPRESSION_ERROR, e);
