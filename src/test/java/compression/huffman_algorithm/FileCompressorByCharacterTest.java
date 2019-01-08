@@ -14,7 +14,7 @@ public class FileCompressorByCharacterTest {
     @Test
     public void performTest() throws Exception {
         File inFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
-                "testCompressorIn.txt");
+                "testTextExpected.txt");
 
         File outExpectedFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
                 "testCompressorExpected.huffman.bin");

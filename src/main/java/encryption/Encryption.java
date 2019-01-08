@@ -1,19 +1,13 @@
 package encryption;
 
-import krm.compression_of_text.huffman_algorithm.FileCompressorByCharacter;
-import krm.exception.CompressionException;
-import krm.exception.ErrorCodeCompression;
+import compression.exception.CompressionException;
+import compression.exception.ErrorCodeCompression;
 
 import java.io.*;
 import java.util.Objects;
 import java.util.UUID;
 
 public class Encryption {
-
-    // размер в битах буфера для записи закодированного текста
-    private static final int  UNIT_BUFFER_SIZE_IN_BITS = 8;
-    // размер в байтах для хранения величины сериализованного дерева Хаффмана (расположение в начале файла)
-    public static final byte LENGTH_SERIALIZABLE_IN_BYTE = 4;
 
     private File inFile;
     private File outFile;
@@ -30,7 +24,7 @@ public class Encryption {
                 throw new CompressionException(ErrorCodeCompression.NO_ACCESS);
             }
             this.inFile = inFile;
-            this.outFile = createCompressedFile(inFile);
+            this.outFile = createOutFile(inFile);
 
         } catch (CompressionException e) {
             throw e;
@@ -49,30 +43,46 @@ public class Encryption {
         this.outFile = outFile;
     }
 
-    public void perform()
-            throws CompressionException {
+    public void perform(String key, boolean decryption) throws IOException {
         if (Objects.nonNull(outFile)) {
-
-           // code(inFile, outFile));
+            System.out.println(outFile);
+            code(inFile, outFile, key, decryption);
         }
     }
 
-    protected void code(File sourceFile, File compressedFile, String key)
-            throws CompressionException {
+    protected void code(File sourceFile, File compressedFile, String key, boolean decryption) throws IOException {
         try (BufferedReader in = new BufferedReader(
                 new InputStreamReader(new FileInputStream(sourceFile), CHARSET_NAME));
-             BufferedWriter out = new BufferedWriter(
-                         new OutputStreamWriter(
-                         new FileOutputStream(compressedFile), FileCompressorByCharacter.CHARSET_NAME))
+             BufferedWriter out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(compressedFile),
+                                                                            CHARSET_NAME))
         ) {
+            char[] vector = new char[key.length()];
+            char[] block = new char[key.length()];
+            char[] keyArr = key.toCharArray();
 
+            int n = in.read(block, 0, key.length());
 
+            while (n != -1) {
+                // в цикле по полученным битам выполняем поиск символа по дереву
+                for (int i = 0; i < block.length;  i++) {
+                    char code = Util.crypt(block[i], keyArr[i], vector[i]);
+
+                    if (decryption) {
+                        vector[i] = block[i];
+                    } else {
+                        vector[i] = code;
+                    }
+
+                    out.write((char) code);
+                }
+                n = in.read(block, 0, key.length());
+            }
         } catch (IOException e) {
-            throw new CompressionException(ErrorCodeCompression.COMPRESSION_ERROR, e);
+           throw  e;
         }
     }
 
-    private File createCompressedFile(File sourceFile) {
+    private File createOutFile(File sourceFile) {
         StringBuilder nameFile = new StringBuilder(sourceFile.getName());
         // UUID
         int index = nameFile.indexOf(".");

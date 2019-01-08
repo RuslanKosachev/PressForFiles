@@ -52,15 +52,14 @@ public class Util {
     public static char  crypt(char plainText, char key, char vector) {
         char keyI = (char) (key ^ vector);
 
-        char cipherText = (char) (plainText ^ keyI);
-        cipherText = permutation(cipherText);
-        cipherText = (char) (cipherText ^ keyI);
+        char cipherTexto = (char) (plainText ^ keyI);
 
-        return  cipherText;
+        return  cipherTexto;
     }
 
-    public static void main(String[] args) {
+    /*public static void main(String[] args) {
         System.out.println(crypt('u', 'd', 'l'));
-        System.out.println(crypt('¶', 'D', 'L'));
-    }
+        char c = crypt('u', 'd', 'l');
+        System.out.println(crypt(c, 'd', 'l'));
+    }*/
 }

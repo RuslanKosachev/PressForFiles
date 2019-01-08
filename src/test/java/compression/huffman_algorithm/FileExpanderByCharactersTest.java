@@ -19,7 +19,7 @@ public class FileExpanderByCharactersTest {
         File outExpectedFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
                 "testExpanderExpected.txt");
         File outActualFile = new File("src\\test\\java\\compression\\huffman_algorithm\\test_files\\" +
-                "testExpanderActual.txt");
+                "testEncryption.txt");
 
         FileExpanderByCharacters expander = new FileExpanderByCharacters(inFile,
                 new BuilderHuffmanTree<Character>(TreeNodeComparator.getInstance()));
